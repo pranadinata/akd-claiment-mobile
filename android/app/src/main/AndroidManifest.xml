@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.akd.akd_flutter">
    <application
-        android:label="akd_flutter"
+        android:label="AKD Claiment"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

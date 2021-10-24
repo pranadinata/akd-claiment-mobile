@@ -6,6 +6,14 @@ import 'package:fragment_navigate/navigate-control.dart';
 import 'package:akd_flutter/main.dart';
 import 'package:akd_flutter/views/admin/data_claiment/data_claiment_page.dart';
 import 'package:akd_flutter/views/admin/data_claiment/form_data_claiment.dart';
+import 'package:akd_flutter/views/admin/dashboard/dashboard_user_page.dart';
+
+final String dashboardUser = 'Dashboard User';
+final String dataKlaiment = 'Data Klaiment';
+final String dataSPPA = 'SPPA';
+final String dataPenjualan = 'Penjualan';
+final String dataAbout = 'About';
+// final String signOut = 'Sign Out';
 
 class MainPage extends StatefulWidget {
   @override
@@ -26,24 +34,23 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-final String dataKlaiment = 'Data Klaiment';
-final String dataSPPA = 'SPPA';
-final String dataPenjualan = 'Penjualan';
-final String dataAbout = 'About';
-// final String signOut = 'Sign Out';
-
 class Main extends StatelessWidget {
   static final FragNavigate _fragNav = FragNavigate(
-      firstKey: dataKlaiment,
+      firstKey: dashboardUser,
       drawerContext: null,
       screens: <Posit>[
+        Posit(
+          key: dashboardUser,
+          title: dashboardUser,
+          icon: Icons.person_pin,
+          fragment: DashboardUser(),
+        ),
         Posit(
           key: dataKlaiment,
           title: dataKlaiment,
           icon: Icons.person_pin,
           fragment: dataClaiment(),
         ),
-
         Posit(
           key: dataSPPA,
           title: dataSPPA,
@@ -70,7 +77,13 @@ class Main extends StatelessWidget {
       ],
       actionsList: [
         ActionPosit(
-          keys: [dataKlaiment, dataSPPA, dataPenjualan, dataAbout],
+          keys: [
+            dashboardUser,
+            dataKlaiment,
+            dataSPPA,
+            dataPenjualan,
+            dataAbout
+          ],
           actions: <Widget>[],
         )
       ],
@@ -122,7 +135,7 @@ class Main extends StatelessWidget {
       case 'Data Klaiment':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const formDataClaiment()),
+          MaterialPageRoute(builder: (context) => formDataClaiment()),
         );
         break;
       case 'SPPA':
@@ -162,9 +175,9 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-            child: Text('Drawer Header'),
-            decoration: BoxDecoration(
-              color: Colors.blueAccent,
+            child: Container(
+              color: Colors.blueGrey,
+              child: Text('Ini Header'),
             ),
           ),
           for (Posit item in fragNav.screenList.values)
