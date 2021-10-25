@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 
-class DataClaiment extends StatefulWidget {
+class DataSPPA extends StatefulWidget {
+  const DataSPPA({Key? key}) : super(key: key);
+
   @override
-  _DataClaimentState createState() => _DataClaimentState();
+  _DataSPPAState createState() => _DataSPPAState();
 }
 
-class _DataClaimentState extends State<DataClaiment> {
-  //inisialisasi list ke dalam array
-  List<Widget> data_claiment = [];
+class _DataSPPAState extends State<DataSPPA> {
+  List<Widget> data_sppa = [];
 
   //constractor
-  _DataClaimentState() {
+  _DataSPPAState() {
     for (var i = 0; i < 10; i++) {
       // data_claiment.add(Text("Text - " + i.toString()));
-      data_claiment.add(buildCard());
+      data_sppa.add(buildCard());
     }
   }
 
-  //method card
+  @override
   Card buildCard() {
     return Card(
       elevation: 10,
@@ -28,19 +29,18 @@ class _DataClaimentState extends State<DataClaiment> {
             child: Icon(Icons.account_box),
           ),
           Text("coba"),
-          Text("Masa sih"),
+          Text("Aja"),
         ],
       ),
     );
   }
 
-  @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(10),
       // color: Colors.green,
       child: ListView(
-        children: data_claiment,
+        children: data_sppa,
       ),
     );
   }

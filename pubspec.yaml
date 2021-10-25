@@ -22,6 +22,7 @@ dependencies:
   shared_preferences: ^2.0.7
   fragment_navigate: ^1.1.1+1
   get: ^4.3.8
+  http: ^0.13.3
 
 dev_dependencies:
   flutter_test:
@@ -32,7 +33,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
+ 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -54,6 +55,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+     - family: Aller
+       fonts:
+         - asset: assets/fonts/Aller_Bd.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

@@ -1,3 +1,4 @@
+import 'package:akd_flutter/views/admin/data_sppa/data_sppa_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fragment_navigate/navigate-control.dart';
@@ -5,7 +6,10 @@ import 'package:fragment_navigate/navigate-control.dart';
 //class tambahan
 import 'package:akd_flutter/main.dart';
 import 'package:akd_flutter/views/admin/data_claiment/data_claiment_page.dart';
+import 'package:akd_flutter/views/admin/SPPA/data_sppa_page.dart';
 import 'package:akd_flutter/views/admin/data_claiment/form_data_claiment.dart';
+import 'package:akd_flutter/views/admin/SPPA/form_data_sppa.dart';
+
 import 'package:akd_flutter/views/admin/dashboard/dashboard_user_page.dart';
 
 final String dashboardUser = 'Dashboard User';
@@ -49,13 +53,13 @@ class Main extends StatelessWidget {
           key: dataKlaiment,
           title: dataKlaiment,
           icon: Icons.person_pin,
-          fragment: dataClaiment(),
+          fragment: DataClaiment(),
         ),
         Posit(
           key: dataSPPA,
           title: dataSPPA,
           icon: Icons.my_library_books_outlined,
-          fragment: Text(dataSPPA),
+          fragment: DataSPPA(),
         ),
         Posit(
           key: dataPenjualan,
@@ -111,13 +115,7 @@ class Main extends StatelessWidget {
                   key: _fragNav.drawerKey,
                   appBar: AppBar(
                     title: Text(s.data!.title ?? 'NULL'),
-                    actions: [
-                      IconButton(
-                          icon: Icon(Icons.add),
-                          onPressed: () {
-                            button_add(context);
-                          })
-                    ],
+                    actions: button_add(context),
                     bottom: s.data?.bottom?.child,
                     backgroundColor: Colors.blue[300],
                   ),
@@ -131,20 +129,47 @@ class Main extends StatelessWidget {
   }
 
   static button_add(context) {
+    List<IconButton> iconButton = [];
     switch (_fragNav.currentKey) {
       case 'Data Klaiment':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => formDataClaiment()),
+        iconButton.add(
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => formDataClaiment()),
+                );
+              }),
         );
+        // IconButton(
+        //     icon: Icon(Icons.add),
+        //     onPressed: () {
+        //       print(_fragNav.currentKey);
+        //       // button_add(context);
+        //     }),
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => formDataClaiment()),
+        // );
         break;
       case 'SPPA':
-        print('Masuk ke SPPA gan');
+        iconButton.add(
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => formDataSppa()),
+                );
+              }),
+        );
         break;
       case 'Penjualan':
         print('Masuk ke Penjualan gan');
         break;
     }
+    return iconButton;
   }
 }
 
