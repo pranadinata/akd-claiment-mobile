@@ -23,6 +23,8 @@ dependencies:
   fragment_navigate: ^1.1.1+1
   get: ^4.3.8
   http: ^0.13.3
+  dio: ^4.0.1
+  image_picker: ^0.8.4+3
 
 dev_dependencies:
   flutter_test:

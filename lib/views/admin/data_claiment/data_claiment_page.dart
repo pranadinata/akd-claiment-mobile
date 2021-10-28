@@ -1,3 +1,8 @@
+import 'package:akd_flutter/models/api_route.dart' as apiRoute;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 
 class DataClaiment extends StatefulWidget {
@@ -8,40 +13,77 @@ class DataClaiment extends StatefulWidget {
 class _DataClaimentState extends State<DataClaiment> {
   //inisialisasi list ke dalam array
   List<Widget> data_claiment = [];
+  List dataJson = [];
+  late Future<List> dataLaporan;
+  late List<bool> _isExpanded;
+ 
+  Future<List> fetchData() async {
+    // PreferencesUser preferencesUser1 = await PreferencesUser();
+    // user = await preferencesUser1.getUser("id");
+    // username = await preferencesUser1.getUser("name");
+    String urlAllDataClaiment = apiRoute.DATA_CLAIMENT_ALL_DATA;
+    http.Response result = await http.get(Uri.parse(urlAllDataClaiment),
+        headers: {"Accept": "application/json"});
 
-  //constractor
-  _DataClaimentState() {
-    for (var i = 0; i < 10; i++) {
-      // data_claiment.add(Text("Text - " + i.toString()));
-      data_claiment.add(buildCard());
-    }
+    this.setState(() {
+      // print(result.body);
+      Map dataAll = json.decode(result.body);
+      dataJson = dataAll["data"];
+      // print(dataJson);
+      _isExpanded = new List<bool>.generate(dataJson.length, (i) => false);
+    });
+
+    return dataJson;
   }
-
   //method card
-  Card buildCard() {
-    return Card(
-      elevation: 10,
-      child: Row(
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(20),
-            child: Icon(Icons.account_box),
+  buildCard() {
+    if (dataJson.isEmpty) {
+        return Text('Tidak ada data');
+    } else {
+      return Column(children: List.generate(dataJson.length, (index) => Card(
+          child: ListTile(
+            title: Text(dataJson[index]['nama_lengkap']),
+            subtitle: Text(dataJson[index]['alamat'])
           ),
-          Text("coba"),
-          Text("Masa sih"),
-        ],
-      ),
+          elevation: 8,
+          shadowColor: Colors.blue,
+          margin: EdgeInsets.all(5),
+        )),
     );
+    }
+    
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    dataLaporan = fetchData();
+  }
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      // color: Colors.green,
-      child: ListView(
-        children: data_claiment,
-      ),
-    );
+    print(dataJson);
+    return FutureBuilder(
+        future: dataLaporan,
+        builder: (context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return Container(
+                child: Container(
+                  // margin: EdgeInsets.all(10.0),
+                  child: Card(
+                    child: Container(
+                      padding: EdgeInsets.all(15.0),
+                      child: ListView(
+                        // padding: EdgeInsets.all(5),
+                        children: [
+                          buildCard(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ));
+          }
+        });
   }
 }

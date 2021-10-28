@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   getPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      _loginStatus = 1;
+      _loginStatus = 0;
       // _loginStatus = preferences.getInt("value")!;
     });
   }

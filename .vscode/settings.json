@@ -1,0 +1,11 @@
+{
+    "dart.analyzerSshHost": null,
+    "dart.closingLabels": false,
+    "editor.renderIndentGuides": false,
+    "[dart]" : {
+
+        "editor.rulers": []
+        },
+        "dart.analyzerLogFile": null
+        
+}
