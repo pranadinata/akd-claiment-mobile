@@ -1,12 +1,12 @@
-import 'package:akd_flutter/views/admin/data_sppa/data_sppa_page.dart';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:fragment_navigate/navigate-control.dart';
 
 //class tambahan
 import 'package:akd_flutter/main.dart';
-import 'package:akd_flutter/views/admin/data_claiment/data_claiment_page.dart';
+import 'package:akd_flutter/models/preferences.dart';
 import 'package:akd_flutter/views/admin/data_sppa/data_sppa_page.dart';
+import 'package:akd_flutter/views/admin/data_claiment/data_claiment_page.dart';
 import 'package:akd_flutter/views/admin/data_claiment/form_data_claiment.dart';
 import 'package:akd_flutter/views/admin/data_sppa/form_data_sppa.dart';
 
@@ -32,7 +32,7 @@ class _MainPageState extends State<MainPage> {
         body: Main(),
       ),
       routes: <String, WidgetBuilder>{
-        '/logout': (BuildContext context) => new MyApp(),
+        '/logout': (BuildContext context) => new MyHomePage(title: 'ini Admin'),
       },
     );
   }
@@ -67,12 +67,12 @@ class Main extends StatelessWidget {
           icon: Icons.mobile_friendly_rounded,
           fragment: Text(dataPenjualan),
         ),
-        Posit(
-          key: dataAbout,
-          title: dataAbout,
-          icon: Icons.outbox_rounded,
-          fragment: Text(dataAbout),
-        ),
+        // Posit(
+        //   key: dataAbout,
+        //   title: dataAbout,
+        //   icon: Icons.outbox_rounded,
+        //   fragment: Text(dataAbout),
+        // ),
         // Posit(
         //     key: signOut,
         //     title: signOut,
@@ -86,7 +86,7 @@ class Main extends StatelessWidget {
             dataKlaiment,
             dataSPPA,
             dataPenjualan,
-            dataAbout
+            // dataAbout
           ],
           actions: <Widget>[],
         )
@@ -173,10 +173,12 @@ class Main extends StatelessWidget {
   }
 }
 
+
 class CustomDrawer extends StatelessWidget {
   final FragNavigate fragNav;
-  const CustomDrawer({required this.fragNav});
-
+  String user = "";
+  CustomDrawer({required this.fragNav});
+ 
   Widget _getItem(
       {required String currentSelect,
       required text,
@@ -194,34 +196,72 @@ class CustomDrawer extends StatelessWidget {
             onTap: () => fragNav.putPosit(key: key)));
   }
 
+  Future<String> getUser() async {
+    PreferencesUser preferencesUser1 = await PreferencesUser();
+    user = await preferencesUser1.getUser("name");
+    return user;
+  }
+
   @override
+  // Widget build(BuildContext context) {
+  //   return Drawer(
+  //     child: ListView(
+  //       children: <Widget>[
+  //         DrawerHeader(
+  //           child: Container(
+  //             color: Colors.blueGrey,
+  //             child: Text('Ini Header'),
+  //           ),
+  //         ),
+  //         for (Posit item in fragNav.screenList.values)
+  //           _getItem(
+  //               currentSelect: fragNav.currentKey,
+  //               text: item.drawerTitle ?? item.title,
+  //               key: item.key,
+  //               icon: item.icon),
+  //         ListTile(
+  //           leading: Icon(Icons.logout),
+  //           title: Text("Sign Out"),
+  //           onTap: () {
+  //             print('keluar app');
+  //             PreferencesUser().removePref(0);
+  //             Navigator.pushReplacementNamed(context, '/logout');
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        children: <Widget>[
-          DrawerHeader(
-            child: Container(
-              color: Colors.blueGrey,
-              child: Text('Ini Header'),
+    return FutureBuilder(
+        future: getUser(),
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          return Drawer(
+            child: ListView(
+              children: <Widget>[
+                DrawerHeader(
+                  child: Text(snapshot.data.toString()),
+                  decoration: BoxDecoration(
+                      // color: Colors.blueAccent,
+                      ),
+                ),
+                for (Posit item in fragNav.screenList.values)
+                  _getItem(
+                      currentSelect: fragNav.currentKey,
+                      text: item.drawerTitle ?? item.title,
+                      key: item.key,
+                      icon: item.icon),
+                ListTile(
+                  leading: Icon(Icons.exit_to_app),
+                  title: Text("Logout"),
+                  onTap: () {
+                    PreferencesUser().removePref(0);
+                    Navigator.pushReplacementNamed(context, '/logout');
+                  },
+                ),
+              ],
             ),
-          ),
-          for (Posit item in fragNav.screenList.values)
-            _getItem(
-                currentSelect: fragNav.currentKey,
-                text: item.drawerTitle ?? item.title,
-                key: item.key,
-                icon: item.icon),
-          ListTile(
-            leading: Icon(Icons.logout),
-            title: Text("Sign Out"),
-            onTap: () {
-              print('keluar app');
-              // PreferencesUser().removePref(0);
-              // Navigator.pushReplacementNamed(context, '/logout');
-            },
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
 }

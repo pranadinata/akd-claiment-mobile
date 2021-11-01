@@ -1,4 +1,5 @@
 import 'package:akd_flutter/models/api_route.dart' as apiRoute;
+import 'package:akd_flutter/models/preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dio/dio.dart';
@@ -16,23 +17,17 @@ class _DataClaimentState extends State<DataClaiment> {
   List dataJson = [];
   late Future<List> dataLaporan;
   late List<bool> _isExpanded;
- 
+
   Future<List> fetchData() async {
-    // PreferencesUser preferencesUser1 = await PreferencesUser();
-    // user = await preferencesUser1.getUser("id");
-    // username = await preferencesUser1.getUser("name");
+    PreferencesUser preferencesUser1 = await PreferencesUser();
+    var user_id = await preferencesUser1.getUser("id");
     String urlAllDataClaiment = apiRoute.DATA_CLAIMENT_ALL_DATA;
-    http.Response result = await http.get(Uri.parse(urlAllDataClaiment),
-        headers: {"Accept": "application/json"});
-
-    this.setState(() {
-      // print(result.body);
-      Map dataAll = json.decode(result.body);
-      dataJson = dataAll["data"];
-      // print(dataJson);
-      _isExpanded = new List<bool>.generate(dataJson.length, (i) => false);
-    });
-
+    http.Response result = await http.post(Uri.parse(urlAllDataClaiment),
+        headers: {"Accept": "application/json"}, body: {'id_user': user_id});
+        
+    Map dataAll = json.decode(result.body); 
+    dataJson = dataAll["data"];
+    _isExpanded = new List<bool>.generate(dataJson.length, (i) => false);
     return dataJson;
   }
   //method card
@@ -61,7 +56,7 @@ class _DataClaimentState extends State<DataClaiment> {
   }
   @override
   Widget build(BuildContext context) {
-    print(dataJson);
+    // print(dataJson);
     return FutureBuilder(
         future: dataLaporan,
         builder: (context, AsyncSnapshot snapshot) {

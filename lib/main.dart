@@ -5,22 +5,8 @@ import 'package:akd_flutter/views/admin/main_page.dart';
 import 'package:akd_flutter/views/login/login_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyHomePage(title: 'Ini Admin'));
 }
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Ini Admin'),
-    );
-  }
-}
-
 class MyHomePage extends StatefulWidget {
   final String title;
 
@@ -47,7 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
       home: (_loginStatus == 1) ? MainPage() : LoginPage(),
       routes: <String, WidgetBuilder>{
         '/signin': (BuildContext context) => new LoginPage(),
-        // '/signup': (BuildContext context) => new RegisterPage(),
         '/home': (BuildContext context) => new MainPage(),
       },
     );
@@ -57,8 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
   getPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      _loginStatus = 0;
-      // _loginStatus = preferences.getInt("value")!;
+      
+      _loginStatus = preferences.getInt("value")!;
     });
-  }
+  }  
 }
+
