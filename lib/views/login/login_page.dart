@@ -15,6 +15,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String data_json = '';
   bool isLoading = false;
   bool _isObscure = true;
   TextEditingController inp_username = new TextEditingController();
@@ -26,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
     return MaterialApp(
       home: Container(
         child: Scaffold(
-          backgroundColor: Colors.blue[200],
+          // backgroundColor: Colors.blue[200],
           body: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -100,6 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                         onPressed: () {
                           login(inp_username.text, inp_password.text);
+                          // cek_api();
                         },
                         child: Text('Login',
                         style: new TextStyle(
@@ -115,6 +117,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),  
                       ),
                     ),
+                    Container(
+                      child: Text(data_json),
+                    ),
+                    
                 ],
               ),
             ),
@@ -136,6 +142,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLoading = false;
     });
+    
     print(response.statusCode);
     if(response.statusCode == 200){
         Map<String, dynamic> resposne = jsonDecode(response.body);
@@ -175,6 +182,23 @@ class _LoginPageState extends State<LoginPage> {
           msg: "Incorrect Username");
     }
     
+  }
+  cek_api() async {
+    final response = await http.get(Uri.parse(USER),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+
+        // encoding: Encoding.getByName("utf-8")
+        );
+    
+  var dataAll = json.decode(response.body); 
+    // print(dataAll);
+    setState(() {
+      data_json = dataAll.toString();
+    });
+    return response;
   }
 
 }

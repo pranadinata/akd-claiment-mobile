@@ -6,6 +6,9 @@
 
         "editor.rulers": []
         },
-        "dart.analyzerLogFile": null
+        "dart.analyzerLogFile": null,
+        "dart.flutterTestAdditionalArgs": [
+            "--no-sound-null-safety"
+        ]
         
 }

@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 
 import 'package:akd_flutter/models/api_route.dart';
 
-
 class PostDataClaiment {
   String? nama_lengkap, alamat,no_tlp, id_user;
   PostDataClaiment({

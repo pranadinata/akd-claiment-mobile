@@ -19,7 +19,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String app_name = "Akd Claiment";
 
-  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -42,9 +41,9 @@ class _MyHomePageState extends State<MyHomePage> {
   getPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      
       _loginStatus = preferences.getInt("value")!;
-    });
-  }  
+      print(_loginStatus);
+    }); 
+  }
 }
 

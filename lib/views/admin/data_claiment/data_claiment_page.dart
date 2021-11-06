@@ -7,11 +7,20 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class DataClaiment extends StatefulWidget {
+  // get onGoBack => null;
+  final _DataClaimentState myAppState=new _DataClaimentState();
   @override
   _DataClaimentState createState() => _DataClaimentState();
+   onGoBack() {
+    print('masuk ke sini');
+    // myAppState.dataLaporan = myAppState.fetchData();
+    myAppState.initState();
+  }
+  
 }
 
 class _DataClaimentState extends State<DataClaiment> {
+  
   //inisialisasi list ke dalam array
   List<Widget> data_claiment = [];
   List dataJson = [];
@@ -35,7 +44,9 @@ class _DataClaimentState extends State<DataClaiment> {
     if (dataJson.isEmpty) {
         return Text('Tidak ada data');
     } else {
-      return Column(children: List.generate(dataJson.length, (index) => Card(
+
+      return Column(children: List.generate(dataJson.length, (index) => 
+        Card(
           child: ListTile(
             title: Text(dataJson[index]['nama_lengkap']),
             subtitle: Text(dataJson[index]['alamat'])
@@ -43,7 +54,9 @@ class _DataClaimentState extends State<DataClaiment> {
           elevation: 8,
           shadowColor: Colors.blue,
           margin: EdgeInsets.all(5),
-        )),
+        )
+      
+        ),
     );
     }
     
@@ -51,8 +64,9 @@ class _DataClaimentState extends State<DataClaiment> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    print('masuk init');
     dataLaporan = fetchData();
+    // TODO: implement initState
   }
   @override
   Widget build(BuildContext context) {
@@ -81,4 +95,5 @@ class _DataClaimentState extends State<DataClaiment> {
           }
         });
   }
+  
 }

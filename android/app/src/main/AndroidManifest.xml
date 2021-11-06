@@ -1,6 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.akd.akd_flutter">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
+   
+        android:requestLegacyExternalStorage="true"
         android:label="AKD Claiment"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -104,7 +104,7 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _fragNav.setDrawerContext = context;
-
+    // print(_fragNav.currentKey);
     return StreamBuilder<FullPosit>(
         stream: _fragNav.outStreamFragment,
         builder: (con, s) {
@@ -129,6 +129,7 @@ class Main extends StatelessWidget {
   }
 
   static button_add(context) {
+    
     List<IconButton> iconButton = [];
     switch (_fragNav.currentKey) {
       case 'Data Klaiment':
@@ -234,16 +235,17 @@ class CustomDrawer extends StatelessWidget {
   // }
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getUser(),
+        // future: getUser(),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
           return Drawer(
             child: ListView(
               children: <Widget>[
                 DrawerHeader(
-                  child: Text(snapshot.data.toString()),
-                  decoration: BoxDecoration(
-                      // color: Colors.blueAccent,
-                      ),
+                  child: Image(
+                    image: AssetImage("assets/images/logo_header.jpeg"),
+                    fit: BoxFit.cover,
+                  ),
+                  
                 ),
                 for (Posit item in fragNav.screenList.values)
                   _getItem(

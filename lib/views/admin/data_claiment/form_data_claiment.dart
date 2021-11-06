@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:akd_flutter/models/api_route.dart';
 import 'package:akd_flutter/models/preferences.dart';
+import 'package:akd_flutter/views/admin/main_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:akd_flutter/controllers/post_data_claiment.dart';
@@ -65,8 +66,11 @@ class _formDataClaimentState extends State<formDataClaiment> {
                             );
                         _clearForm();
                         final snackBar = SnackBar(content: Text('Berhasil Masuk'));
-                        Navigator.pop(context);
+                        // Navigator.push(DataClaiment).then((value) => setState(() {}));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        Navigator.pop(context, () {
+                          setState(() {});
+                        });
                       },
                       child: Icon(Icons.add
                           // size: 26.0,

@@ -1,8 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferencesUser {
-  int value = 0;
-  String name = '';
+  String name = "";
   void savePref(int value, String name, String email, int id) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 

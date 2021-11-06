@@ -20,8 +20,8 @@ class _DataSPPAState extends State<DataSPPA> {
   Future<List> fetchData() async {
     PreferencesUser preferencesUser1 = await PreferencesUser();
     var user_id = await preferencesUser1.getUser("id");
-    String urlAllDataClaiment = apiRoute.DATA_CLAIMENT_ALL_DATA;
-    http.Response result = await http.post(Uri.parse(urlAllDataClaiment),
+    String urlAllDataSppa = apiRoute.DATA_SPPA_ALL_DATA;
+    http.Response result = await http.post(Uri.parse(urlAllDataSppa),
         headers: {"Accept": "application/json"}, body: {'id_user': user_id});
         
     Map dataAll = json.decode(result.body); 
@@ -29,36 +29,84 @@ class _DataSPPAState extends State<DataSPPA> {
     _isExpanded = new List<bool>.generate(dataJson.length, (i) => false);
     return dataJson;
   }
-  _DataSPPAState() {
-    for (var i = 0; i < 2; i++) {
-      // data_claiment.add(Text("Text - " + i.toString()));
-      data_sppa.add(buildCard());
-    }
-  }
-  @override
-  Card buildCard() {
-    return Card(
-      elevation: 10,
-      child: Row(
+ 
+  buildCard() {
+    if(dataJson.isEmpty){
+      return Text('Tidak ada data');
+    }else{
+      return Column(
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(20),
-            child: Icon(Icons.account_box),
+          Column(
+              children: List.generate(dataJson.length, (index) => Card(
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    title: Text(dataJson[index]['peserta_1']),
+                    subtitle: Text(dataJson[index]['peserta_2']),
+                  ),
+                ButtonTheme(
+                  child: FlatButton(
+                    padding: EdgeInsets.all(10),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Perjanjian.pdf",
+                        style: TextStyle(
+                          // color: ThemeColors.primaryDark,
+                          fontWeight: FontWeight.normal,
+                          // fontSize: ThemeSizes.normalFont,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    onPressed: () => (){},
+                  ),
+                )
+                ],
+              ),
+                elevation: 8,
+                shadowColor: Colors.blue,
+                // margin: EdgeInsets.all(5),
+              ),
+            ), 
           ),
-          Text("coba"),
-          Text("Aja"),
-        ],
-      ),
-    );
+        ]
+      );
+    }
+    
   }
+
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      // color: Colors.green,
-      child: ListView(
-        children: data_sppa,
-      ),
-    );
+  void initState() {
+    // TODO: implement initState
+    dataLaporan = fetchData();
+  }
+
+  @override
+   Widget build(BuildContext context) {
+    // print(dataJson);
+    return FutureBuilder(
+        future: dataLaporan,
+        builder: (context, AsyncSnapshot snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return Container(
+                child: Container(
+                  // margin: EdgeInsets.all(10.0),
+                  child: Card(
+                    child: Container(
+                      padding: EdgeInsets.all(15.0),
+                      child: ListView(
+                        // padding: EdgeInsets.all(5),
+                        children: [
+                          buildCard(),
+                        ],
+                      ),
+                    ),
+                  ),
+                ));
+          }
+        });
   }
 }
