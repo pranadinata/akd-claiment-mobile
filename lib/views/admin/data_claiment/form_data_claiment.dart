@@ -66,10 +66,14 @@ class _formDataClaimentState extends State<formDataClaiment> {
                             );
                         _clearForm();
                         final snackBar = SnackBar(content: Text('Berhasil Masuk'));
-                        // Navigator.push(DataClaiment).then((value) => setState(() {}));
+
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         Navigator.pop(context, () {
-                          setState(() {});
+                          // print('masuk');
+                          setState(() {
+                            
+                            
+                          });
                         });
                       },
                       child: Icon(Icons.add

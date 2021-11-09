@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:akd_flutter/models/api_route.dart' as apiRoute;
 import 'package:akd_flutter/models/preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:path/path.dart';
+
 class DataSPPA extends StatefulWidget {
   const DataSPPA({Key? key}) : super(key: key);
 
@@ -29,8 +32,7 @@ class _DataSPPAState extends State<DataSPPA> {
     _isExpanded = new List<bool>.generate(dataJson.length, (i) => false);
     return dataJson;
   }
- 
-  buildCard() {
+  buildCard(context) {
     if(dataJson.isEmpty){
       return Text('Tidak ada data');
     }else{
@@ -41,27 +43,108 @@ class _DataSPPAState extends State<DataSPPA> {
               child: Column(
                 children: <Widget>[
                   ListTile(
-                    title: Text(dataJson[index]['peserta_1']),
-                    subtitle: Text(dataJson[index]['peserta_2']),
+                    onTap: (){
+                      showDialog(context: context, builder: (context){ 
+                        return AlertDialog(
+                          title: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(dataJson[index]['nama_lengkap']),
+                          ),
+                          content: Container(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Wrap(
+                                    children: [
+                                      Text('Peserta 1 : ', style: TextStyle(fontWeight: FontWeight.bold),)
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(dataJson[index]['peserta_1']),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(10),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Wrap(
+                                    children: [
+                                      Text('Peserta 2 : ', style: TextStyle(fontWeight: FontWeight.bold),)
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(dataJson[index]['peserta_2']),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(10),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Wrap(
+                                    children: [
+                                      Text('Jumlah Premi : ', style: TextStyle(fontWeight: FontWeight.bold),)
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text('Rp. '+dataJson[index]['jumlah_premi'].toString()),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(10),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Wrap(
+                                    children: [
+                                      Text('Pembuatan : ', style: TextStyle(fontWeight: FontWeight.bold),)
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(dataJson[index]['created_at']),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(10),
+                                ),
+                              ],
+                            ),
+                            
+                          ),
+                          
+                          actions: [
+                            FlatButton(
+                              child: Text("Close"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                    },
+                    title: Text(dataJson[index]['nama_lengkap']),
+                    subtitle: Text(dataJson[index]['jumlah_premi'].toString()),
                   ),
-                ButtonTheme(
-                  child: FlatButton(
-                    padding: EdgeInsets.all(10),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Perjanjian.pdf",
-                        style: TextStyle(
-                          // color: ThemeColors.primaryDark,
-                          fontWeight: FontWeight.normal,
-                          // fontSize: ThemeSizes.normalFont,
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    TextButton(
+                      child: const Text('COBA.pdf'),
+                      onPressed: () {
+                        print(dataJson[index]);
+                      },
                     ),
-                    onPressed: () => (){},
-                  ),
-                )
+                    const SizedBox(width: 8),
+                  ],
+                ),
                 ],
               ),
                 elevation: 8,
@@ -100,7 +183,7 @@ class _DataSPPAState extends State<DataSPPA> {
                       child: ListView(
                         // padding: EdgeInsets.all(5),
                         children: [
-                          buildCard(),
+                          buildCard(context),
                         ],
                       ),
                     ),

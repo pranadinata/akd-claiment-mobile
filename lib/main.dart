@@ -1,3 +1,4 @@
+import 'package:akd_flutter/views/admin/dashboard/dashboard_home_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,10 +30,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: app_name,
-      home: (_loginStatus == 1) ? MainPage() : LoginPage(),
+      home: (_loginStatus == 1) ? HomeDashboard() : LoginPage(),
       routes: <String, WidgetBuilder>{
         '/signin': (BuildContext context) => new LoginPage(),
-        '/home': (BuildContext context) => new MainPage(),
+        '/home': (BuildContext context) => new HomeDashboard(),
       },
     );
   }
@@ -42,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
       _loginStatus = preferences.getInt("value")!;
-      print(_loginStatus);
+      // print(_loginStatus);
     }); 
   }
 }

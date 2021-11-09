@@ -1,4 +1,5 @@
 
+import 'package:akd_flutter/models/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fragment_navigate/navigate-control.dart';
 
@@ -17,7 +18,6 @@ final String dataKlaiment = 'Data Klaiment';
 final String dataSPPA = 'SPPA';
 final String dataPenjualan = 'Penjualan';
 final String dataAbout = 'About';
-// final String signOut = 'Sign Out';
 
 class MainPage extends StatefulWidget {
   @override
@@ -115,10 +115,33 @@ class Main extends StatelessWidget {
                   key: _fragNav.drawerKey,
                   appBar: AppBar(
                     title: Text(s.data!.title ?? 'NULL'),
-                    actions: button_add(context),
+                    // actions: button_add(context),
                     bottom: s.data?.bottom?.child,
                     backgroundColor: Colors.blue[300],
                   ),
+                  floatingActionButton: (_fragNav.currentKey) == 'Data Klaiment' ?  FloatingActionButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => formDataClaiment()),
+                      );
+                    },
+                    child: const Icon(Icons.add),
+                    backgroundColor: color.Mblue,
+                  ) : 
+                  (_fragNav.currentKey) == 'SPPA' ? FloatingActionButton(
+                    onPressed: () {
+                      // Add your onPressed code here!
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => formDataSppa()),
+                      );
+                    },
+                    child: const Icon(Icons.add),
+                    backgroundColor: color.Mblue,
+                  ) : Container() ,
+                  
+                
                   drawer: CustomDrawer(fragNav: _fragNav),
                   body: ScreenNavigate(
                       child: s.data!.fragment, control: _fragNav)),
@@ -127,51 +150,6 @@ class Main extends StatelessWidget {
           return Container();
         });
   }
-
-  static button_add(context) {
-    
-    List<IconButton> iconButton = [];
-    switch (_fragNav.currentKey) {
-      case 'Data Klaiment':
-        iconButton.add(
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => formDataClaiment()),
-                );
-              }),
-        );
-        // IconButton(
-        //     icon: Icon(Icons.add),
-        //     onPressed: () {
-        //       print(_fragNav.currentKey);
-        //       // button_add(context);
-        //     }),
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => formDataClaiment()),
-        // );
-        break;
-      case 'SPPA':
-        iconButton.add(
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => formDataSppa()),
-                );
-              }),
-        );
-        break;
-      case 'Penjualan':
-        print('Masuk ke Penjualan gan');
-        break;
-    }
-    return iconButton;
-  }
 }
 
 
@@ -179,7 +157,7 @@ class CustomDrawer extends StatelessWidget {
   final FragNavigate fragNav;
   String user = "";
   CustomDrawer({required this.fragNav});
- 
+
   Widget _getItem(
       {required String currentSelect,
       required text,
@@ -204,35 +182,6 @@ class CustomDrawer extends StatelessWidget {
   }
 
   @override
-  // Widget build(BuildContext context) {
-  //   return Drawer(
-  //     child: ListView(
-  //       children: <Widget>[
-  //         DrawerHeader(
-  //           child: Container(
-  //             color: Colors.blueGrey,
-  //             child: Text('Ini Header'),
-  //           ),
-  //         ),
-  //         for (Posit item in fragNav.screenList.values)
-  //           _getItem(
-  //               currentSelect: fragNav.currentKey,
-  //               text: item.drawerTitle ?? item.title,
-  //               key: item.key,
-  //               icon: item.icon),
-  //         ListTile(
-  //           leading: Icon(Icons.logout),
-  //           title: Text("Sign Out"),
-  //           onTap: () {
-  //             print('keluar app');
-  //             PreferencesUser().removePref(0);
-  //             Navigator.pushReplacementNamed(context, '/logout');
-  //           },
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
   Widget build(BuildContext context) {
     return FutureBuilder(
         // future: getUser(),
@@ -241,10 +190,33 @@ class CustomDrawer extends StatelessWidget {
             child: ListView(
               children: <Widget>[
                 DrawerHeader(
-                  child: Image(
-                    image: AssetImage("assets/images/logo_header.jpeg"),
-                    fit: BoxFit.cover,
-                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 5,
+                        child:
+                          Align(
+                            child: Image(
+                                image: AssetImage("assets/images/logo_jasa-raharja.jpeg"),
+                            ),
+                          ), 
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: 
+                          Align(
+                            child: Image(
+                              image: AssetImage("assets/images/logo_jp-aspri.png"),
+                              // width: 150, 
+                              // fit: BoxF,
+                              // fit: BoxFit.cover,
+                          ),
+                          )
+                      ),
+                    ],
+                  )
+                  
                   
                 ),
                 for (Posit item in fragNav.screenList.values)

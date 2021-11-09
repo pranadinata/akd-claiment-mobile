@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:akd_flutter/views/admin/data_claiment/data_claiment_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -38,8 +39,10 @@ class PostDataClaiment {
         "id_user": id_user,
       },
     );
-    print(apiResult.body);
+    // print(apiResult.body);
     var jsonObject = json.decode(apiResult.body);
+    DataClaiment().myAppState.initState();
     return PostDataClaiment.createPostDataClaiment(jsonObject);
   }
 }
+
