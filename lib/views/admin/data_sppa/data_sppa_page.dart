@@ -116,9 +116,7 @@ class _DataSPPAState extends State<DataSPPA> {
                                 ),
                               ],
                             ),
-                            
                           ),
-                          
                           actions: [
                             FlatButton(
                               child: Text("Close"),

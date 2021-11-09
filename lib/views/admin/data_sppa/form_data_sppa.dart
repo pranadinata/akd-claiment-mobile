@@ -146,7 +146,7 @@ class _formDataSppaState extends State<formDataSppa> {
                 padding: EdgeInsets.only(right: 20.0),
                 child: GestureDetector(
                   onTap: () {
-                    PostDataSPPA.connectToAPI(id_data_klaiment,peserta1.text.toString(),peserta2.text.toString(),uploadFileName,uploadFileName_ttd, uuid_fileName, uuid_fileName_ttd);
+                    PostDataSPPA.connectToAPI(id_data_klaiment,peserta1.text.toString(),peserta2.text.toString(),uploadFileName,uploadFileName_ttd, uuid_fileName, uuid_fileName_ttd, 'masuk');
                     _postFileTTD();
                     _postFileKTP();
                     // print(id_data_klaiment);                 

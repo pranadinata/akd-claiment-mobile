@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:akd_flutter/models/api_route.dart';
 
 class PostDataSPPA {
-  String? id_data_klaiment, peserta_1,peserta_2,foto_ktp_peserta, foto_tanda_tangan, uuid_fileName, uuid_fileName_ttd;
+  String? id_data_klaiment, peserta_1,peserta_2,foto_ktp_peserta, foto_tanda_tangan, uuid_fileName, uuid_fileName_ttd, file_document_sppa;
       PostDataSPPA({
         required this.id_data_klaiment,
         required this.peserta_1,
@@ -15,6 +15,8 @@ class PostDataSPPA {
         required this.foto_tanda_tangan,
         required this.uuid_fileName,
         required this.uuid_fileName_ttd,
+        required this.file_document_sppa,
+
       });
 factory PostDataSPPA.createPostDataSPPA(Map<String, dynamic> object) {
     return PostDataSPPA(
@@ -25,10 +27,12 @@ factory PostDataSPPA.createPostDataSPPA(Map<String, dynamic> object) {
       foto_tanda_tangan: object['foto_tanda_tangan'],
       uuid_fileName: object['uuid_fileName'],
       uuid_fileName_ttd: object['uuid_fileName_ttd'],
+      file_document_sppa: object['file_document_sppa'],
+
     );
   }
   static Future<PostDataSPPA> connectToAPI(
-      String id_data_klaiment, String peserta_1, String peserta_2, String foto_ktp_peserta, String foto_tanda_tangan, String uuid_fileName, String uuid_fileName_ttd) async {
+      String id_data_klaiment, String peserta_1, String peserta_2, String foto_ktp_peserta, String foto_tanda_tangan, String uuid_fileName, String uuid_fileName_ttd, String file_document_sppa) async {
     var apiResult = await http.post(
       Uri.parse(DATA_SPPA_STORE),
       headers: {
@@ -43,6 +47,8 @@ factory PostDataSPPA.createPostDataSPPA(Map<String, dynamic> object) {
         "foto_tanda_tangan": foto_tanda_tangan,
         "uuid_fileName": uuid_fileName,
         "uuid_fileName_ttd": uuid_fileName_ttd,
+        "file_document_sppa": file_document_sppa,
+
       },
     );
     print(apiResult.body);

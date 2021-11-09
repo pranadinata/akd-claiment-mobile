@@ -193,15 +193,15 @@ class CustomDrawer extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Expanded(
-                        flex: 5,
-                        child:
-                          Align(
-                            child: Image(
-                                image: AssetImage("assets/images/logo_jasa-raharja.jpeg"),
-                            ),
-                          ), 
-                      ),
+                      // Expanded(
+                      //   flex: 5,
+                      //   child:
+                      //     Align(
+                      //       child: Image(
+                      //           image: AssetImage("assets/images/logo_jasa-raharja.jpeg"),
+                      //       ),
+                      //     ), 
+                      // ),
                       Expanded(
                         flex: 5,
                         child: 

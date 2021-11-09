@@ -156,56 +156,56 @@ class dashboardHome extends StatelessWidget {
                   Expanded(
                     child: ListView(
                       children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
-                        Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),Container(
-                          margin: EdgeInsets.all(20),
-                          child: Text('Masuk'),
-                        ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
+                        // Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),Container(
+                        //   margin: EdgeInsets.all(20),
+                        //   child: Text('Masuk'),
+                        // ),
                         
                       ],
                     )
@@ -232,14 +232,14 @@ class dashboardHome extends StatelessWidget {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              print('masuk');
-              // Add your onPressed code here!
-            },
-            child: const Icon(Icons.add),
-            backgroundColor: color.Mblue,
-          ),
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: () {
+          //     print('masuk');
+          //     // Add your onPressed code here!
+          //   },
+          //   child: const Icon(Icons.add),
+          //   backgroundColor: color.Mblue,
+          // ),
           ),
           
           
