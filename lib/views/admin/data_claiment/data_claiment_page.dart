@@ -1,4 +1,5 @@
 import 'package:akd_flutter/models/api_route.dart' as apiRoute;
+import 'package:akd_flutter/views/admin/data_claiment/updateForm_page.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:akd_flutter/models/preferences.dart';
 import 'package:http/http.dart' as http;
@@ -12,8 +13,7 @@ class DataClaiment extends StatefulWidget {
   final _DataClaimentState myAppState = new _DataClaimentState();
   @override
   _DataClaimentState createState() => _DataClaimentState();
-   onGoBack() {
-    print('masuk ke sini');
+  onGoBack() {
     // myAppState.dataLaporan = myAppState.fetchData();
     myAppState.initState();
   }
@@ -120,7 +120,16 @@ class _DataClaimentState extends State<DataClaiment> {
                   children: <Widget>[
                     TextButton(
                       child: const Text('UPDATE', style: TextStyle(color: Colors.greenAccent),),
-                      onPressed: () {/* ... */},
+                      onPressed: () {
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => updateDataClaiment(
+                          id: dataJson[index]['id'],
+                          nama_lengkap_old: dataJson[index]['nama_lengkap'],
+                          alamat_old: dataJson[index]['alamat'],
+                          )),
+                      );
+                      },
                     ),
                     const SizedBox(width: 8),
                   ],

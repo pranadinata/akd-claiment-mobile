@@ -1,6 +1,6 @@
 //windows
-const String PUBLIC = "http://192.168.0.184/akd-web-service/public/uploads/";
-const String ROOT = "http://192.168.0.184/akd-web-service/public/api";
+const String PUBLIC = "http://10.1.25.105/akd-web-service/public/uploads/";
+const String ROOT = "http://10.1.25.105/akd-web-service/public/api";
 
 //server vps
 // const String PUBLIC = "http://5.181.217.149/uploads/";

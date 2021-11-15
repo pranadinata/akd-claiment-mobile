@@ -8,7 +8,7 @@ import 'package:akd_flutter/main.dart';
 import 'package:akd_flutter/models/preferences.dart';
 import 'package:akd_flutter/views/admin/data_sppa/data_sppa_page.dart';
 import 'package:akd_flutter/views/admin/data_claiment/data_claiment_page.dart';
-import 'package:akd_flutter/views/admin/data_claiment/form_data_claiment.dart';
+import 'package:akd_flutter/views/admin/data_claiment/createForm_page.dart';
 import 'package:akd_flutter/views/admin/data_sppa/form_data_sppa.dart';
 
 import 'package:akd_flutter/views/admin/dashboard/dashboard_user_page.dart';
@@ -210,7 +210,7 @@ class CustomDrawer extends StatelessWidget {
                               image: AssetImage("assets/images/logo_jp-aspri.png"),
                               // width: 150, 
                               // fit: BoxF,
-                              // fit: BoxFit.cover,
+                              fit: BoxFit.cover,
                           ),
                           )
                       ),

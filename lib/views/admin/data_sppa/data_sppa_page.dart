@@ -1,11 +1,18 @@
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:akd_flutter/models/api_route.dart';
 import 'package:flutter/material.dart';
 import 'package:akd_flutter/models/api_route.dart' as apiRoute;
 import 'package:akd_flutter/models/preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flowder/flowder.dart';
+// import 'package:open_file/open_file.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:path/path.dart';
+import 'package:open_file/open_file.dart';
 
 class DataSPPA extends StatefulWidget {
   const DataSPPA({Key? key}) : super(key: key);
@@ -17,6 +24,8 @@ class DataSPPA extends StatefulWidget {
 class _DataSPPAState extends State<DataSPPA> {
   List<Widget> data_sppa = [];
   List dataJson = [];
+  late DownloaderUtils options;
+  late DownloaderCore core;
   late Future<List> dataLaporan;
   late List<bool> _isExpanded;
 
@@ -135,9 +144,27 @@ class _DataSPPAState extends State<DataSPPA> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     TextButton(
-                      child: const Text('COBA.pdf'),
-                      onPressed: () {
+                      child: const Text('Download File'),
+                      onPressed: () async {
+                        final baseStorage = '/storage/emulated/0/Android/data/com.akd.akd_flutter/files/';
+                        
+                        final directory = await getExternalStorageDirectory();
+                        // For your reference print the AppDoc directory 
+                        print(directory);
+                        options = DownloaderUtils(
+                            progressCallback: (current, total) {
+                              final progress = (current / total) * 100;
+                              print('Downloading: $progress');
+                            },
+                            file: File(baseStorage + 'AKD Claiment.pdf'), 
+                            progress: ProgressImplementation(),
+                            onDone: () {
+                                  OpenFile.open(baseStorage + 'AKD Claiment.pdf');
+                            },
+                            deleteOnCancel: true,
+                          );
                         print(dataJson[index]);
+                        core = await Flowder.download(('http://5.181.217.149/pdf_/SPPA_AKD_CLAIMENT_Final.pdf'), options);
                       },
                     ),
                     const SizedBox(width: 8),
@@ -191,3 +218,5 @@ class _DataSPPAState extends State<DataSPPA> {
         });
   }
 }
+
+

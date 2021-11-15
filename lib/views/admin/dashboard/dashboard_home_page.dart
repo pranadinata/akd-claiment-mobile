@@ -77,152 +77,72 @@ class dashboardHome extends StatelessWidget {
             body: SafeArea(
             child: Column(
               children: <Widget>[
-                TopContainer(
-                    height: 200, 
-                    width: width, 
-                    padding: EdgeInsets.symmetric(),
-                    child: Column(
-                      
-                      children: <Widget>[
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //   children: <Widget>[
-                        //     Icon(Icons.menu,
-                        //         color: Colors.redAccent, size: 30.0),
-                        //     Icon(Icons.search,
-                        //         color: Colors.redAccent, size: 25.0),
-                        //   ],
-                        // ),
-                        Container(
-                          margin: EdgeInsets.all(30),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              CircularPercentIndicator(
-                                radius: 90.0,
-                                lineWidth: 5.0,
-                                animation: true,
-                                percent: 0.75,
-                                circularStrokeCap: CircularStrokeCap.round,
-                                progressColor: Colors.redAccent,
-                                backgroundColor: color.Mblue,
-                                center: CircleAvatar(
-                                  backgroundColor: color.Mblue,
-                                  radius: 35.0,
-                                  backgroundImage: AssetImage(
-                                    'assets/images/avatar.png',
-                                  ),
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Container(
-                                    child: Text(
-                                      // preferencesUser1.getUser('nama_lengkap'),
-                                      user,
-                                      
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        fontSize: 22.0,
-                                        color: Colors.blueGrey[900],
-                                        fontWeight: FontWeight.w800,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    child: Text(
-                                      'User',
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.black45,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          )
-                      ],
-                    ), 
-                  ),
                   Expanded(
                     child: ListView(
                       children: <Widget>[
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
-                        // Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),Container(
-                        //   margin: EdgeInsets.all(20),
-                        //   child: Text('Masuk'),
-                        // ),
                         
+                        Container(
+                          margin: EdgeInsets.all(20),
+                          child: Image(
+                              image: AssetImage("assets/images/logo_header.jpeg"),
+                              // width: 150, 
+                              // fit: BoxF,
+                              fit: BoxFit.cover,
+                        )
+                        ),
+                        Align(
+                          // margin: EdgeInsets.all(20),
+                          child: Text('LINDUNGI KELUARGA YANG ANDA CINTAI',style: TextStyle(color: Colors.blue[900],fontWeight: FontWeight.bold),),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 20, left: 20, top: 10),
+                          child: Text('Kecelakaan, dapat terjadi dimana saja, dan bersifat tiba-tiba. Tidak hanya di jalan raya tapi juga di rumah, di tempat kerja, pusat keramaian atau banyak tempat lainnya. Anda tidak akan pernah menduga apa yang akan terjadi.',textAlign: TextAlign.justify),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 20, left: 20, top: 10, bottom: 20),
+                          child: Text('JP-ASPRI adalah solusi yang tepat untuk memberikan perlindungan bagi Anda, orang-orang yang Anda sayangi, karyawan Anda ataupun rekan-rekan Anda dari risiko kecelakaan, karena JP-ASPRI tidak hanya melindungi di tempat kerja atau di sekolah, tetapi selama 24 jam dimana saja berada. Jangan menunggu waktu percayakan sepenuhnya perlindungan asuransi kecelakaan pribadi pada JP-ASPRI, produk asuransi terpercaya dari JP-INSURANCE.',textAlign: TextAlign.justify),
+                        ),
+                        Align(
+                          // margin: EdgeInsets.all(20),
+                          child: Text('KELENGKAPAN BERKAS KLAIM',style: TextStyle(color: Colors.blue[900],fontWeight: FontWeight.bold),),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 20, left: 20, top: 10,),
+                          child: Text('1. Tertanggung sesegera mungkin melaporkan/menyampaikan keterangan tertulis mengenai kerugian yang terjadi dengan tidak merubah/merusak objek yang mengalami kerugian.',textAlign: TextAlign.justify),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 20, left: 20, top: 10,),
+                          child: Text('2. Pengajuan klaim dilakukan dengan:',textAlign: TextAlign.justify),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 20, left: 40, top: 10,),
+                          child: Text('(a) Mengisi formulir Laporan Klaim Asuransi Kecelakaan Diri (LK1)'),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 20, left: 40, top: 10,),
+                          child: Text('(b) Melampirkan kwitansi biaya pengobatan'),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 20, left: 40, top: 10,),
+                          child: Text('(c) Melampirkan surat kematian, copy Kartu Keluarga dan KTP khusus untuk meninggal dunia'),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(right: 20, left: 40, top: 10,),
+                          child: Text('(d) Untuk korban cacat tetap dilengkapi dengan laporan kesehatan terakhir dari dokter.'),
+                        ),      
+                        Container(
+                          margin: EdgeInsets.only(right: 20, left: 40, top: 10,),
+                          child: Text('(e) Dokumen pendukung lainnya yang diperlukan'),
+                        ),
                       ],
                     )
                   ),
-                  // Container(
-                  //   child: FlatButton( 
-                  //       child: Text('Log out'),
-                  //       onPressed: (){
-                  //         PreferencesUser().removePref(0);
-                  //         Navigator.pushReplacementNamed(context, '/logout');
-                  //       },
-                  //     ),
-                  // ),
                   Container(
-                    child: FlatButton( 
-                        child: Text('Home User'),
+                    child: FlatButton(
+                        child: Text('Lanjutkan'),
+                        minWidth: MediaQuery.of(context).size.width,
                         onPressed: (){
+                          
                           // PreferencesUser().removePref(0);
                           Navigator.pushReplacementNamed(context, '/homeUser');
                         },
