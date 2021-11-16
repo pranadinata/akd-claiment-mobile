@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 // import 'dart:io';
 import 'package:akd_flutter/controllers/post_data_sppa.dart';
@@ -37,17 +36,21 @@ class _formDataSppaState extends State<formDataSppa> {
   TextEditingController alamat = TextEditingController();
   TextEditingController peserta1 = TextEditingController();
   TextEditingController peserta2 = TextEditingController();
+  TextEditingController tanggal_lahir_peserta1 = TextEditingController();
+  TextEditingController tanggal_lahir_peserta2 = TextEditingController();
 
-  List namaDataKlaimentList= [];
+  List namaDataKlaimentList = [];
 
   // String _valGender;
   var _valFriends;
-  
- Future<List> getDataKlaiment() async {
-   PreferencesUser preferencesUser1 = await PreferencesUser();
+  var jenis_kelamin_peserta_1;
+  var jenis_kelamin_peserta_2;
+  List _listGender = ["Laki - Laki", "Perempuan"];
+  Future<List> getDataKlaiment() async {
+    PreferencesUser preferencesUser1 = await PreferencesUser();
     var user_id = await preferencesUser1.getUser("id");
-     String urlAllDataClaiment = apiRoute.DATA_CLAIMENT_ALL_DATA;
-   http.Response result = await http.post(Uri.parse(urlAllDataClaiment),
+    String urlAllDataClaiment = apiRoute.DATA_CLAIMENT_ALL_DATA;
+    http.Response result = await http.post(Uri.parse(urlAllDataClaiment),
         headers: {"Accept": "application/json"}, body: {'id_user': user_id});
 
     this.setState(() {
@@ -55,8 +58,8 @@ class _formDataSppaState extends State<formDataSppa> {
       namaDataKlaimentList = namaDataKlaimentListAll['data'];
     });
     return namaDataKlaimentList;
-    
   }
+
   Future uploadFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result != null) {
@@ -74,7 +77,8 @@ class _formDataSppaState extends State<formDataSppa> {
       // _isButtonDisabled = true;
     });
   }
-   Future tandaTangan() async {
+
+  Future tandaTangan() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     // print(result);
     if (result != null) {
@@ -88,47 +92,56 @@ class _formDataSppaState extends State<formDataSppa> {
     } else {
       // User canceled the picker
     }
-
   }
 
   void _postFileKTP() async {
     FormData formData = new FormData.fromMap({
-      "foto_ktp_peserta": await MultipartFile.fromFile(uploadFilePath,
-          filename: uploadFileName,),
+      "foto_ktp_peserta": await MultipartFile.fromFile(
+        uploadFilePath,
+        filename: uploadFileName,
+      ),
     });
     // print(formData);
-    Response response = await Dio().post(apiRoute.DATA_SPPA_STORE_FILE, data: formData);
+    Response response =
+        await Dio().post(apiRoute.DATA_SPPA_STORE_FILE, data: formData);
     print("File uploaded response : $response");
   }
+
   void _postFileTTD() async {
     FormData formData = new FormData.fromMap({
-      "foto_tanda_tangan": await MultipartFile.fromFile(uploadFilePath_ttd,
-          filename: uploadFileName_ttd,),
+      "foto_tanda_tangan": await MultipartFile.fromFile(
+        uploadFilePath_ttd,
+        filename: uploadFileName_ttd,
+      ),
     });
 
-    Response response = await Dio().post(apiRoute.DATA_SPPA_STORE_FILETTD, data: formData);
+    Response response =
+        await Dio().post(apiRoute.DATA_SPPA_STORE_FILETTD, data: formData);
     print("File uploaded response : $response");
   }
-   void _clearForm() {
+
+  void _clearForm() {
     setState(() {
-        alamat.clear();
-        peserta1.clear();
-        peserta2.clear();
-        uuid_fileName = '';
-        uploadFileName = "No File Uploaded";
-        uploadFilePath = "";
-        uuid_fileName_ttd = '';
-        uploadFileName_ttd = "No File Uploaded";
-        uploadFilePath_ttd = "";
-        jumlah_premi = "Rp. 0";
-        id_data_klaiment = '';
+      alamat.clear();
+      peserta1.clear();
+      peserta2.clear();
+      uuid_fileName = '';
+      uploadFileName = "No File Uploaded";
+      uploadFilePath = "";
+      uuid_fileName_ttd = '';
+      uploadFileName_ttd = "No File Uploaded";
+      uploadFilePath_ttd = "";
+      jumlah_premi = "Rp. 0";
+      id_data_klaiment = '';
     });
   }
- @override
+
+  @override
   void initState() {
     // TODO: implement initState
-   getDataKlaiment();
+    getDataKlaiment();
   }
+
   @override
   Widget build(BuildContext context) {
     // print(_valFriends);
@@ -146,11 +159,19 @@ class _formDataSppaState extends State<formDataSppa> {
                 padding: EdgeInsets.only(right: 20.0),
                 child: GestureDetector(
                   onTap: () {
-                    PostDataSPPA.connectToAPI(id_data_klaiment,peserta1.text.toString(),peserta2.text.toString(),uploadFileName,uploadFileName_ttd, uuid_fileName, uuid_fileName_ttd, 'masuk');
+                    PostDataSPPA.connectToAPI(
+                        id_data_klaiment,
+                        peserta1.text.toString(),
+                        peserta2.text.toString(),
+                        uploadFileName,
+                        uploadFileName_ttd,
+                        uuid_fileName,
+                        uuid_fileName_ttd,
+                        'masuk');
                     _postFileTTD();
                     _postFileKTP();
-                    // print(id_data_klaiment);                 
-                    
+                    // print(id_data_klaiment);
+
                     final snackBar = SnackBar(content: Text('Berhasil Masuk'));
                     // Navigator.push(DataClaiment).then((value) => setState(() {}));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -215,7 +236,7 @@ class _formDataSppaState extends State<formDataSppa> {
                     ),
                   ),
                   TextField(
-                    enabled: false, 
+                    enabled: false,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey[200],
@@ -237,8 +258,8 @@ class _formDataSppaState extends State<formDataSppa> {
                         // alamat.text = _valFriends;
                       });
                     },
-                    
-                    controller: alamat, 
+
+                    controller: alamat,
                   ),
                 ],
               ),
@@ -283,6 +304,88 @@ class _formDataSppaState extends State<formDataSppa> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
+                      'Jenis Kelamin',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontFamily: "Aller",
+                          fontSize: 18,
+                          color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    child: DropdownButton(
+                      isExpanded: true,
+                      hint: Text("Select The Gender"),
+                      value: jenis_kelamin_peserta_1,
+                      items: _listGender.map((value) {
+                        return DropdownMenuItem(
+                          child: Text(value),
+                          value: value,
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          jenis_kelamin_peserta_1 = value;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+              ),
+              Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Tanggal Lahir Peserta 1',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontFamily: "Aller",
+                          fontSize: 17,
+                          color: color_input),
+                    ),
+                  ),
+                  TextFormField(
+                    controller: tanggal_lahir_peserta1,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10.0),
+                        ),
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                    ),
+                    onTap: () async {
+                      DateTime? date = DateTime(1900);
+                      FocusScope.of(context).requestFocus(new FocusNode());
+
+                      date = (await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100)));
+
+                      tanggal_lahir_peserta1.text = date.toString();
+                    },
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+              ),
+              Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
                       'Peserta 2',
                       textAlign: TextAlign.left,
                       style: TextStyle(
@@ -308,12 +411,93 @@ class _formDataSppaState extends State<formDataSppa> {
                     // borderRadius: BorderRadius.all(Radius.circular(20)),
                     maxLength: 100,
                     onChanged: (value) {
-                      setState(() {
-                      });
+                      setState(() {});
                     },
                     controller: peserta2,
                   ),
                 ],
+              ),
+              Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Jenis Kelamin',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontFamily: "Aller",
+                          fontSize: 18,
+                          color: Colors.black),
+                    ),
+                  ),
+                  Container(
+                    child: DropdownButton(
+                      isExpanded: true,
+                      hint: Text("Select The Gender"),
+                      value: jenis_kelamin_peserta_2,
+                      items: _listGender.map((value) {
+                        return DropdownMenuItem(
+                          child: Text(value),
+                          value: value,
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          jenis_kelamin_peserta_2 = value;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+              ),
+              Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Tanggal Lahir Peserta 2',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                          fontFamily: "Aller",
+                          fontSize: 17,
+                          color: color_input),
+                    ),
+                  ),
+                  TextFormField(
+                    controller: tanggal_lahir_peserta2,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10.0),
+                        ),
+                        borderSide: BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                    ),
+                    onTap: () async {
+                      DateTime? date = DateTime(1900);
+                      FocusScope.of(context).requestFocus(new FocusNode());
+
+                      date = (await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2100)));
+
+                      tanggal_lahir_peserta2.text = date.toString();
+                    },
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
               ),
               Column(
                 children: <Widget>[
@@ -329,47 +513,47 @@ class _formDataSppaState extends State<formDataSppa> {
                     ),
                   ),
                   Row(
-                    children: <Widget>[       
-                      Flexible(child: 
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          width: MediaQuery.of(context).size.width,
-                          // height: 80,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                    String text_peserta1, text_peserta2;
-                                    text_peserta1 = peserta1.text;
-                                    text_peserta2 = peserta2.text;
-                                    if(text_peserta1 != '' && text_peserta2 != ''){
-                                        jumlah_premi = "Rp. 250.000";
-                                    }else{
-                                      if(text_peserta1 != '' || text_peserta2 != ''){
-                                          jumlah_premi = "Rp. 125.000";
-                                      }else{
-                                        jumlah_premi = "Rp. 0";
-                                      }
-                                    }
-                                });
-                                
-                              },
-                              child: Text('Hitung Premi',
-                              style: new TextStyle(
-                                    fontSize: 20.0,
-                                    // color: Colors.yellow,
-                                  ),
-                              ),  
+                    children: <Widget>[
+                      Flexible(
+                          child: Container(
+                        padding: EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width,
+                        // height: 80,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              String text_peserta1, text_peserta2;
+                              text_peserta1 = peserta1.text;
+                              text_peserta2 = peserta2.text;
+                              if (text_peserta1 != '' && text_peserta2 != '') {
+                                jumlah_premi = "Rp. 250.000";
+                              } else {
+                                if (text_peserta1 != '' ||
+                                    text_peserta2 != '') {
+                                  jumlah_premi = "Rp. 125.000";
+                                } else {
+                                  jumlah_premi = "Rp. 0";
+                                }
+                              }
+                            });
+                          },
+                          child: Text(
+                            'Hitung Premi',
+                            style: new TextStyle(
+                              fontSize: 20.0,
+                              // color: Colors.yellow,
                             ),
-                          )
+                          ),
                         ),
-                        Flexible(
-                        child: Text(jumlah_premi , 
+                      )),
+                      Flexible(
+                          child: Text(
+                        jumlah_premi,
                         style: new TextStyle(
-                                    fontSize: 20.0,
-                                    // color: Colors.yellow,
-                                  ),
-                        )
-                      ),
+                          fontSize: 20.0,
+                          // color: Colors.yellow,
+                        ),
+                      )),
                     ],
                   ),
                   Column(
@@ -385,7 +569,7 @@ class _formDataSppaState extends State<formDataSppa> {
                               color: Colors.black),
                         ),
                       ),
-                    Container(
+                      Container(
                         width: MediaQuery.of(context).size.width,
                         // margin: EdgeInsets.all(10),
                         child: Row(
@@ -398,9 +582,8 @@ class _formDataSppaState extends State<formDataSppa> {
                               ),
                             ),
                             RaisedButton(
-                                onPressed: uploadFile,
-                                child: Text("Browse")),
-                            
+                                onPressed: uploadFile, child: Text("Browse")),
+
                             // Container(
                             //     margin: EdgeInsets.only(left: 5.0, right: 5.0),
                             //     child: Text("atau")),
@@ -410,9 +593,9 @@ class _formDataSppaState extends State<formDataSppa> {
                           ],
                         ),
                       ),
-                    Container(
-                        width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.only(left: 10.0,top: 10.0),
+                      Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.only(left: 10.0, top: 10.0),
                           child: Text(uploadFileName)),
                     ],
                   ),
@@ -433,7 +616,7 @@ class _formDataSppaState extends State<formDataSppa> {
                               color: Colors.black),
                         ),
                       ),
-                    Container(
+                      Container(
                         width: MediaQuery.of(context).size.width,
                         // margin: EdgeInsets.all(10),
                         child: Row(
@@ -446,33 +629,28 @@ class _formDataSppaState extends State<formDataSppa> {
                               ),
                             ),
                             RaisedButton(
-                                onPressed: tandaTangan,
-                                child: Text("Browse")),
-                            
+                                onPressed: tandaTangan, child: Text("Browse")),
                             Container(
                                 margin: EdgeInsets.only(left: 5.0, right: 5.0),
                                 child: Text("atau")),
                             RaisedButton(
-                                onPressed: (){
+                                onPressed: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => SignaturePage()),
-                                    );
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignaturePage()),
+                                  );
                                 },
                                 child: Icon(Icons.pattern_sharp)),
                           ],
                         ),
                       ),
-                    Container(
-                        width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.only(left: 10.0,top: 10.0),
-                          child: Text(uploadFileName_ttd)
-                          ),
+                      Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: EdgeInsets.only(left: 10.0, top: 10.0),
+                          child: Text(uploadFileName_ttd)),
                     ],
                   ),
-                  
-                  
-                    
                 ],
               ),
             ],

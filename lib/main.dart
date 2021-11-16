@@ -8,6 +8,7 @@ import 'package:akd_flutter/views/login/login_page.dart';
 void main() {
   runApp(MyHomePage(title: 'Ini Admin'));
 }
+
 class MyHomePage extends StatefulWidget {
   final String title;
 
@@ -45,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
       print(preferences.getInt('value').toString());
       _loginStatus = preferences.getInt("value")!;
       // print(_loginStatus);11
-    }); 
+    });
   }
 }
-

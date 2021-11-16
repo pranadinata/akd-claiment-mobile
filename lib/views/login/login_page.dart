@@ -20,7 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _isObscure = true;
   TextEditingController inp_username = new TextEditingController();
   TextEditingController inp_password = new TextEditingController();
- 
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -33,32 +33,34 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                  padding: const EdgeInsets.only(top: 70.0,bottom: 30.0),
-                  child: Center(
-                    child: Container(
-                        width: MediaQuery.of(context).size.width / 1,
-                        height: MediaQuery.of(context).size.height / 6,
-                        child: Image.asset('assets/images/logo_jp-aspri.png')),
-                      ),
+                    padding: const EdgeInsets.only(top: 70.0, bottom: 30.0),
+                    child: Center(
+                      child: Container(
+                          width: MediaQuery.of(context).size.width / 1,
+                          height: MediaQuery.of(context).size.height / 6,
+                          child:
+                              Image.asset('assets/images/logo_jp-aspri.png')),
                     ),
-                  Padding(padding: EdgeInsets.symmetric(horizontal: 15),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
                     child: TextField(
                       controller: inp_username,
                       decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      prefixIcon: Icon(Icons.email),
-                      hintText: 'Username',
-                      border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(10.0),
-                        ),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        prefixIcon: Icon(Icons.email),
+                        hintText: 'Username',
+                        border: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide: BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
                         ),
                       ),
-                    ),
                     ),
                   ),
                   Container(
@@ -70,10 +72,10 @@ class _LoginPageState extends State<LoginPage> {
                       controller: inp_password,
                       obscureText: _isObscure,
                       decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      prefixIcon: Icon(Icons.vpn_key_sharp),
-                      suffixIcon: IconButton(
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        prefixIcon: Icon(Icons.vpn_key_sharp),
+                        suffixIcon: IconButton(
                             icon: Icon(_isObscure
                                 ? Icons.visibility
                                 : Icons.visibility_off),
@@ -82,45 +84,46 @@ class _LoginPageState extends State<LoginPage> {
                                 _isObscure = !_isObscure;
                               });
                             }),
-                      hintText: 'Password',
-                      border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(10.0),
-                        ),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
+                        hintText: 'Password',
+                        border: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10.0),
+                          ),
+                          borderSide: BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
                         ),
                       ),
-                    ),  
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.all(15),
                     width: width,
                     child: ElevatedButton(
-                        onPressed: () {
-                          login(inp_username.text, inp_password.text);
-                          // cek_api();
-                        },
-                        child: Text('Login',
+                      onPressed: () {
+                        login(inp_username.text, inp_password.text);
+                        // cek_api();
+                      },
+                      child: Text(
+                        'Masuk',
                         style: new TextStyle(
-                              fontSize: 20.0,
-                              // color: Colors.yellow,
-                            ),
+                          fontSize: 20.0,
+                          // color: Colors.yellow,
                         ),
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0), // <-- Radius
-                          ),
-                        ),  
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(10.0), // <-- Radius
+                        ),
                       ),
                     ),
-                    Container(
-                      child: Text(data_json),
-                    ),
-                    
+                  ),
+                  // Container(
+                  //   child: Text(data_json),
+                  // ),
                 ],
               ),
             ),
@@ -129,7 +132,8 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
- login(username, password) async{
+
+  login(username, password) async {
     Map data = {'username': username, 'password': password};
     // print(data.toString());
     final response = await http.post(Uri.parse(LOGIN),
@@ -142,38 +146,36 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       isLoading = false;
     });
-    
+
     print(response.statusCode);
-    if(response.statusCode == 200){
-        Map<String, dynamic> resposne = jsonDecode(response.body);
-        if(resposne['status_code'] == 200){
-          Map<String, dynamic> user = resposne['data'];
-          if(user['group_user'] == 1){
-            PreferencesUser preferencesUser = new PreferencesUser();
-            
-            preferencesUser.savePref(
-                1, user['nama_lengkap'].toString(), user['username'].toString(), user['id']
-              );
-              Fluttertoast.showToast(
-                timeInSecForIosWeb: 10,
-                webShowClose: true,
-                toastLength: Toast.LENGTH_LONG,
-                gravity: ToastGravity.BOTTOM,
-                msg: resposne['message']);
-              Navigator.pushReplacementNamed(context, "/home");
-          }else{
-            print('anda admin');
-          }
-          
-        }else{
-            Fluttertoast.showToast(
+    if (response.statusCode == 200) {
+      Map<String, dynamic> resposne = jsonDecode(response.body);
+      if (resposne['status_code'] == 200) {
+        Map<String, dynamic> user = resposne['data'];
+        if (user['group_user'] == 1) {
+          PreferencesUser preferencesUser = new PreferencesUser();
+
+          preferencesUser.savePref(1, user['nama_lengkap'].toString(),
+              user['username'].toString(), user['id']);
+          Fluttertoast.showToast(
+              timeInSecForIosWeb: 10,
+              webShowClose: true,
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+              msg: resposne['message']);
+          Navigator.pushReplacementNamed(context, "/home");
+        } else {
+          print('anda admin');
+        }
+      } else {
+        Fluttertoast.showToast(
             timeInSecForIosWeb: 10,
             webShowClose: true,
             toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.BOTTOM,
             msg: resposne['message']);
-        }
-    }else{
+      }
+    } else {
       Fluttertoast.showToast(
           timeInSecForIosWeb: 10,
           webShowClose: true,
@@ -181,24 +183,24 @@ class _LoginPageState extends State<LoginPage> {
           gravity: ToastGravity.BOTTOM,
           msg: "Incorrect Username");
     }
-    
   }
-  cek_api() async {
-    final response = await http.get(Uri.parse(USER),
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
 
-        // encoding: Encoding.getByName("utf-8")
-        );
-    
-  var dataAll = json.decode(response.body); 
+  cek_api() async {
+    final response = await http.get(
+      Uri.parse(USER),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+
+      // encoding: Encoding.getByName("utf-8")
+    );
+
+    var dataAll = json.decode(response.body);
     // print(dataAll);
     setState(() {
       data_json = dataAll.toString();
     });
     return response;
   }
-
 }

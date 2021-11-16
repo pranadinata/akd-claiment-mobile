@@ -1,5 +1,5 @@
-
 import 'package:akd_flutter/models/colors.dart';
+import 'package:akd_flutter/views/admin/penjualan/penjualan_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fragment_navigate/navigate-control.dart';
 
@@ -13,9 +13,9 @@ import 'package:akd_flutter/views/admin/data_sppa/form_data_sppa.dart';
 
 import 'package:akd_flutter/views/admin/dashboard/dashboard_user_page.dart';
 
-final String dashboardUser = 'Dashboard User';
+final String dashboardUser = 'Halaman Utama';
 final String dataKlaiment = 'Data Klaiment';
-final String dataSPPA = 'SPPA';
+final String dataSPPA = 'Data SPPA';
 final String dataPenjualan = 'Penjualan';
 final String dataAbout = 'About';
 
@@ -46,7 +46,7 @@ class Main extends StatelessWidget {
         Posit(
           key: dashboardUser,
           title: dashboardUser,
-          icon: Icons.person_pin,
+          icon: Icons.dashboard_sharp,
           fragment: DashboardUser(),
         ),
         Posit(
@@ -65,7 +65,7 @@ class Main extends StatelessWidget {
           key: dataPenjualan,
           title: dataPenjualan,
           icon: Icons.mobile_friendly_rounded,
-          fragment: Text(dataPenjualan),
+          fragment: penjualanSPPA(),
         ),
         // Posit(
         //   key: dataAbout,
@@ -119,29 +119,32 @@ class Main extends StatelessWidget {
                     bottom: s.data?.bottom?.child,
                     backgroundColor: Colors.blue[300],
                   ),
-                  floatingActionButton: (_fragNav.currentKey) == 'Data Klaiment' ?  FloatingActionButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => formDataClaiment()),
-                      );
-                    },
-                    child: const Icon(Icons.add),
-                    backgroundColor: color.Mblue,
-                  ) : 
-                  (_fragNav.currentKey) == 'SPPA' ? FloatingActionButton(
-                    onPressed: () {
-                      // Add your onPressed code here!
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => formDataSppa()),
-                      );
-                    },
-                    child: const Icon(Icons.add),
-                    backgroundColor: color.Mblue,
-                  ) : Container() ,
-                  
-                
+                  floatingActionButton: (_fragNav.currentKey) == 'Data Klaiment'
+                      ? FloatingActionButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => formDataClaiment()),
+                            );
+                          },
+                          child: const Icon(Icons.add),
+                          backgroundColor: color.Mblue,
+                        )
+                      : (_fragNav.currentKey) == 'Data SPPA'
+                          ? FloatingActionButton(
+                              onPressed: () {
+                                // Add your onPressed code here!
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => formDataSppa()),
+                                );
+                              },
+                              child: const Icon(Icons.add),
+                              backgroundColor: color.Mblue,
+                            )
+                          : Container(),
                   drawer: CustomDrawer(fragNav: _fragNav),
                   body: ScreenNavigate(
                       child: s.data!.fragment, control: _fragNav)),
@@ -151,7 +154,6 @@ class Main extends StatelessWidget {
         });
   }
 }
-
 
 class CustomDrawer extends StatelessWidget {
   final FragNavigate fragNav;
@@ -186,56 +188,51 @@ class CustomDrawer extends StatelessWidget {
     return FutureBuilder(
         // future: getUser(),
         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-          return Drawer(
-            child: ListView(
+      return Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                DrawerHeader(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      // Expanded(
-                      //   flex: 5,
-                      //   child:
-                      //     Align(
-                      //       child: Image(
-                      //           image: AssetImage("assets/images/logo_jasa-raharja.jpeg"),
-                      //       ),
-                      //     ), 
-                      // ),
-                      Expanded(
-                        flex: 5,
-                        child: 
-                          Align(
-                            child: Image(
-                              image: AssetImage("assets/images/logo_jp-aspri.png"),
-                              // width: 150, 
-                              // fit: BoxF,
-                              fit: BoxFit.cover,
-                          ),
-                          )
+                // Expanded(
+                //   flex: 5,
+                //   child:
+                //     Align(
+                //       child: Image(
+                //           image: AssetImage("assets/images/logo_jasa-raharja.jpeg"),
+                //       ),
+                //     ),
+                // ),
+                Expanded(
+                    flex: 5,
+                    child: Align(
+                      child: Image(
+                        image: AssetImage("assets/images/logo_jp-aspri.png"),
+                        // width: 150,
+                        // fit: BoxF,
+                        fit: BoxFit.cover,
                       ),
-                    ],
-                  )
-                  
-                  
-                ),
-                for (Posit item in fragNav.screenList.values)
-                  _getItem(
-                      currentSelect: fragNav.currentKey,
-                      text: item.drawerTitle ?? item.title,
-                      key: item.key,
-                      icon: item.icon),
-                ListTile(
-                  leading: Icon(Icons.exit_to_app),
-                  title: Text("Logout"),
-                  onTap: () {
-                    PreferencesUser().removePref(0);
-                    Navigator.pushReplacementNamed(context, '/logout');
-                  },
-                ),
+                    )),
               ],
+            )),
+            for (Posit item in fragNav.screenList.values)
+              _getItem(
+                  currentSelect: fragNav.currentKey,
+                  text: item.drawerTitle ?? item.title,
+                  key: item.key,
+                  icon: item.icon),
+            ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text("Keluar"),
+              onTap: () {
+                PreferencesUser().removePref(0);
+                Navigator.pushReplacementNamed(context, '/logout');
+              },
             ),
-          );
-        });
+          ],
+        ),
+      );
+    });
   }
 }
