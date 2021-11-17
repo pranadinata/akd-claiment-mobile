@@ -1,12 +1,14 @@
 import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+//package tambahan
+import 'package:akd_flutter/models/config.dart';
 import 'package:akd_flutter/models/api_route.dart';
 import 'package:akd_flutter/models/preferences.dart';
 import 'package:akd_flutter/views/admin/main_page.dart';
-
-import 'package:flutter/material.dart';
 import 'package:akd_flutter/controllers/post_data_claiment.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:akd_flutter/views/admin/data_claiment/data_claiment_page.dart';
 
 class formDataClaiment extends StatefulWidget {
@@ -37,10 +39,6 @@ class _formDataClaimentState extends State<formDataClaiment> {
   }
   @override
   Widget build(BuildContext context) {
-    
-    Color? color_input = Colors.black;
-    Color? apps_appbar = Colors.blue[300];
-
     return FutureBuilder(
       future: getUser(),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -50,7 +48,7 @@ class _formDataClaimentState extends State<formDataClaiment> {
             },
           home: Scaffold(
             appBar: AppBar(
-              backgroundColor: apps_appbar,
+              backgroundColor: color.MBase,
               title: Text("Data Klaiment"),
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
@@ -96,13 +94,13 @@ class _formDataClaimentState extends State<formDataClaiment> {
                           style: TextStyle(
                               fontFamily: "Aller",
                               fontSize: 17,
-                              color: color_input),
+                              color: color.MInputName),
                         ),
                       ),
                       TextField(
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.grey[200],
+                          fillColor: color.MTextField,
                           border: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(10.0),
@@ -134,13 +132,13 @@ class _formDataClaimentState extends State<formDataClaiment> {
                           style: TextStyle(
                               fontFamily: "Aller",
                               fontSize: 17,
-                              color: Colors.black),
+                              color: color.MInputName),
                         ),
                       ),
                       TextField(
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.grey[200],
+                          fillColor: color.MTextField,
                           border: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(10.0),
@@ -170,13 +168,18 @@ class _formDataClaimentState extends State<formDataClaiment> {
                           style: TextStyle(
                               fontFamily: "Aller",
                               fontSize: 17,
-                              color: Colors.black),
+                              color: color.MInputName),
                         ),
                       ),
-                      TextField(
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                        ],
                         decoration: InputDecoration(
+                          
                           filled: true,
-                          fillColor: Colors.grey[200],
+                          fillColor: color.MTextField,
                           border: OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(10.0),
@@ -188,6 +191,7 @@ class _formDataClaimentState extends State<formDataClaiment> {
                           ),
                         ),
                         // borderRadius: BorderRadius.all(Radius.circular(20)),
+                        
                         maxLength: 12,
                         onChanged: (value) {
                           setState(() {});

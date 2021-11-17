@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flowder/flowder.dart';
-// import 'package:open_file/open_file.dart';
+import 'package:akd_flutter/models/config.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:path/path.dart';
@@ -200,20 +200,14 @@ class _DataSPPAState extends State<DataSPPA> {
             return Center(child: CircularProgressIndicator());
           } else {
             return Container(
-                child: Container(
-                  // margin: EdgeInsets.all(10.0),
-                  child: Card(
-                    child: Container(
-                      padding: EdgeInsets.all(15.0),
-                      child: ListView(
-                        // padding: EdgeInsets.all(5),
-                        children: [
-                          buildCard(context),
-                        ],
-                      ),
-                    ),
+                  decoration: setting.background_method(),
+                  padding: EdgeInsets.all(10),
+                  child: ListView(
+                    children: [
+                      buildCard(context),
+                    ],
                   ),
-                ));
+              );
           }
         });
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import 'package:akd_flutter/models/colors.dart';
+//package tambahan
 import 'package:akd_flutter/main.dart';
+import 'package:akd_flutter/models/config.dart';
 import 'package:akd_flutter/views/admin/main_page.dart';
 import 'package:akd_flutter/models/preferences.dart';
-import 'package:akd_flutter/views/admin/dashboard/top_container.dart';
 
 class HomeDashboard extends StatefulWidget {
   const HomeDashboard({ Key? key }) : super(key: key);
@@ -140,10 +140,8 @@ class dashboardHome extends StatelessWidget {
                   Container(
                     child: FlatButton(
                         child: Text('Lanjutkan'),
-                        minWidth: MediaQuery.of(context).size.width,
+                        minWidth: setting.widthFlex(context),
                         onPressed: (){
-                          
-                          // PreferencesUser().removePref(0);
                           Navigator.pushReplacementNamed(context, '/homeUser');
                         },
                       ),

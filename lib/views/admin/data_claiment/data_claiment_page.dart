@@ -1,12 +1,14 @@
-import 'package:akd_flutter/models/api_route.dart' as apiRoute;
-import 'package:akd_flutter/views/admin/data_claiment/updateForm_page.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:akd_flutter/models/preferences.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dio/dio.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+//package tambahan
+import 'package:akd_flutter/models/config.dart';
+import 'package:akd_flutter/models/preferences.dart';
+import 'package:akd_flutter/models/api_route.dart' as apiRoute;
+import 'package:akd_flutter/views/admin/data_claiment/updateForm_page.dart';
 
 class DataClaiment extends StatefulWidget {
   // get onGoBack => null;
@@ -126,16 +128,14 @@ class _DataClaimentState extends State<DataClaiment> {
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
-                                TextButton(
-                                  child: const Text(
-                                    'UPDATE',
-                                    style: TextStyle(color: Colors.greenAccent),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
+                                Container(
+                                  margin: EdgeInsets.all(8),
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
                                               updateDataClaiment(
                                                 id: dataJson[index]['id'],
                                                 nama_lengkap_old:
@@ -146,33 +146,60 @@ class _DataClaimentState extends State<DataClaiment> {
                                                 no_tlp_old: dataJson[index]
                                                     ['no_tlp'],
                                               )),
-                                    );
-                                  },
+                                      );
+                                    },
+                                    icon: Icon(Icons.update_rounded, size: 18),
+                                    label: Text("Ubah"),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: color.MBase,
+                                    ),
+                                  ),
                                 ),
-                                const SizedBox(width: 8),
                               ],
                             )
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
-                                TextButton(
-                                  child: const Text(
-                                    'UPDATE',
-                                    style: TextStyle(color: Colors.greenAccent),
+                                Container(
+                                  margin: EdgeInsets.all(8),
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                              updateDataClaiment(
+                                                id: dataJson[index]['id'],
+                                                nama_lengkap_old:
+                                                    dataJson[index]
+                                                        ['nama_lengkap'],
+                                                alamat_old: dataJson[index]
+                                                    ['alamat'],
+                                                no_tlp_old: dataJson[index]
+                                                    ['no_tlp'],
+                                              )),
+                                      );
+                                    },
+                                    icon: Icon(Icons.update_rounded, size: 18),
+                                    label: Text("Ubah"),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: color.MBase,
+                                    ),
                                   ),
-                                  onPressed: () {/* ... */},
                                 ),
-                                const SizedBox(width: 8),
-                                TextButton(
-                                  child: const Text(
-                                    'DELETE',
-                                    style: TextStyle(color: Colors.redAccent),
+                                Container(
+                                  margin: EdgeInsets.only(top: 8,right: 8, bottom: 8),
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+
+                                    },
+                                    icon: Icon(Icons.delete_rounded, size: 18),
+                                    label: Text("Hapus"),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: color.MRed,
+                                    ),
                                   ),
-                                  onPressed: () {
-                                    print(dataJson[index]['id']);
-                                  },
                                 ),
-                                const SizedBox(width: 8),
                               ],
                             ),
                       // print(dataJson[index]['status_sppa']);
@@ -201,20 +228,14 @@ class _DataClaimentState extends State<DataClaiment> {
             return Center(child: CircularProgressIndicator());
           } else {
             return Container(
-                child: Container(
-              // margin: EdgeInsets.all(10.0),
-              child: Card(
-                child: Container(
-                  padding: EdgeInsets.all(15.0),
+                decoration: setting.background_method(),
+                  padding: EdgeInsets.all(10),
                   child: ListView(
-                    // padding: EdgeInsets.all(5),
                     children: [
                       buildCard(),
                     ],
                   ),
-                ),
-              ),
-            ));
+              );
           }
         });
   }

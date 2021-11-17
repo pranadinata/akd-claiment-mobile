@@ -1,4 +1,4 @@
-import 'package:akd_flutter/models/colors.dart';
+import 'package:akd_flutter/models/config.dart';
 import 'package:akd_flutter/views/admin/penjualan/penjualan_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fragment_navigate/navigate-control.dart';
@@ -29,7 +29,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Main(),
+        body: 
+        Main(),
       ),
       routes: <String, WidgetBuilder>{
         '/logout': (BuildContext context) => new MyHomePage(title: 'ini Admin'),
@@ -40,6 +41,7 @@ class _MainPageState extends State<MainPage> {
 
 class Main extends StatelessWidget {
   static final FragNavigate _fragNav = FragNavigate(
+    
       firstKey: dashboardUser,
       drawerContext: null,
       screens: <Posit>[
@@ -117,7 +119,7 @@ class Main extends StatelessWidget {
                     title: Text(s.data!.title ?? 'NULL'),
                     // actions: button_add(context),
                     bottom: s.data?.bottom?.child,
-                    backgroundColor: Colors.blue[300],
+                    backgroundColor: color.MBase,
                   ),
                   floatingActionButton: (_fragNav.currentKey) == 'Data Klaiment'
                       ? FloatingActionButton(
@@ -129,7 +131,7 @@ class Main extends StatelessWidget {
                             );
                           },
                           child: const Icon(Icons.add),
-                          backgroundColor: color.Mblue,
+                          backgroundColor: color.MBase,
                         )
                       : (_fragNav.currentKey) == 'Data SPPA'
                           ? FloatingActionButton(
@@ -142,15 +144,17 @@ class Main extends StatelessWidget {
                                 );
                               },
                               child: const Icon(Icons.add),
-                              backgroundColor: color.Mblue,
+                              backgroundColor: color.MBase,
                             )
                           : Container(),
                   drawer: CustomDrawer(fragNav: _fragNav),
                   body: ScreenNavigate(
-                      child: s.data!.fragment, control: _fragNav)),
+                        child: s.data!.fragment, control: _fragNav),
+                  ),
             );
 
-          return Container();
+          return Container(
+          );
         });
   }
 }
@@ -168,7 +172,7 @@ class CustomDrawer extends StatelessWidget {
     Color _getColor() => currentSelect == key ? Colors.white : Colors.black87;
 
     return Material(
-        color: currentSelect == key ? Colors.blue[300] : Colors.transparent,
+        color: currentSelect == key ? color.MBase : Colors.transparent,
         child: ListTile(
             leading:
                 Icon(icon, color: currentSelect == key ? Colors.white : null),
@@ -187,7 +191,7 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
         // future: getUser(),
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
       return Drawer(
         child: ListView(
           children: <Widget>[
@@ -195,22 +199,11 @@ class CustomDrawer extends StatelessWidget {
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                // Expanded(
-                //   flex: 5,
-                //   child:
-                //     Align(
-                //       child: Image(
-                //           image: AssetImage("assets/images/logo_jasa-raharja.jpeg"),
-                //       ),
-                //     ),
-                // ),
                 Expanded(
                     flex: 5,
                     child: Align(
                       child: Image(
                         image: AssetImage("assets/images/logo_jp-aspri.png"),
-                        // width: 150,
-                        // fit: BoxF,
                         fit: BoxFit.cover,
                       ),
                     )),

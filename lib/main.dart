@@ -1,6 +1,6 @@
 import 'package:akd_flutter/views/admin/dashboard/dashboard_home_page.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:ui';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:akd_flutter/views/admin/main_page.dart';
 import 'package:akd_flutter/views/login/login_page.dart';
@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   getPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     setState(() {
-      print(preferences.getInt('value').toString());
+      // print(preferences.getInt('value').toString());
       _loginStatus = preferences.getInt("value")!;
       // print(_loginStatus);11
     });

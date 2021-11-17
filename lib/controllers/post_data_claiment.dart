@@ -1,10 +1,11 @@
 import 'dart:convert';
-import 'package:akd_flutter/views/admin/data_claiment/data_claiment_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
+//package tambahan
 import 'package:akd_flutter/models/api_route.dart';
+import 'package:akd_flutter/views/admin/data_claiment/data_claiment_page.dart';
 
 class PostDataClaiment {
   String? nama_lengkap, alamat,no_tlp, id_user;
@@ -44,5 +45,13 @@ class PostDataClaiment {
     DataClaiment().myAppState.initState();
     return PostDataClaiment.createPostDataClaiment(jsonObject);
   }
+}
+
+class updatePostDataKlaiment{
+
+}
+
+class deletePostDataKlaiment{
+
 }
 
