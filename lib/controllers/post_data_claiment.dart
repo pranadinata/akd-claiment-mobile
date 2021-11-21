@@ -48,7 +48,42 @@ class PostDataClaiment {
 }
 
 class updatePostDataKlaiment{
+  String? nama_lengkap, alamat,no_tlp, id_user;
+  updatePostDataKlaiment({
+    required this.nama_lengkap,
+    required this.alamat,
+    required this.no_tlp,
+    required this.id_user,
+  });
 
+   factory updatePostDataKlaiment.updatePostDataClaiment(Map<String, dynamic> object) {
+    return updatePostDataKlaiment(
+      nama_lengkap: object['nama_lengkap'],
+      alamat: object['alamat'],
+      no_tlp: object['no_tlp'],
+      id_user: object['id_user'],
+    );
+  } 
+  static Future<updatePostDataKlaiment> connectToAPI(
+      String nama_lengkap, String alamat, String no_tlp, String id_user) async {
+    var apiResult = await http.post(
+      Uri.parse(DATA_CLAIMENT_STORE),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: {
+        "nama_lengkap": nama_lengkap,
+        "alamat": alamat,
+        "no_tlp": no_tlp,
+        "id_user": id_user,
+      },
+    );
+    // print(apiResult.body);
+    var jsonObject = json.decode(apiResult.body);
+    DataClaiment().myAppState.initState();
+    return updatePostDataKlaiment.updatePostDataClaiment(jsonObject);
+  }
 }
 
 class deletePostDataKlaiment{

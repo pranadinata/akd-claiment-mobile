@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+//package tambahan 
+import 'package:akd_flutter/models/config.dart';
+import 'package:akd_flutter/controllers/post_data_claiment.dart';
+
 class updateDataClaiment extends StatelessWidget {
   const updateDataClaiment({
     Key? key,
@@ -24,13 +28,11 @@ class updateDataClaiment extends StatelessWidget {
     alamat.text = alamat_old;
     no_tlp.text = no_tlp_old;
 
-    // nama_lengkap.text = id.toString();
-    Color? color_input = Colors.black;
-    Color? apps_appbar = Colors.blue[300];
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: apps_appbar,
-        title: Text('Ubah Data'),
+        backgroundColor: color.MBase,
+        title: Text('Data Klaiment'),
       ),
       body: Container(
         margin: EdgeInsets.all(20),
@@ -44,7 +46,7 @@ class updateDataClaiment extends StatelessWidget {
                     'Nama Lengkap',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontFamily: "Aller", fontSize: 17, color: color_input),
+                        fontFamily: "Aller", fontSize: 17, color: color.MInputName),
                   ),
                 ),
                 TextField(
@@ -76,7 +78,7 @@ class updateDataClaiment extends StatelessWidget {
                     'Alamat',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontFamily: "Aller", fontSize: 17, color: color_input),
+                        fontFamily: "Aller", fontSize: 17, color: color.MInputName),
                   ),
                 ),
                 TextField(
@@ -108,7 +110,7 @@ class updateDataClaiment extends StatelessWidget {
                     'Alamat',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontFamily: "Aller", fontSize: 17, color: color_input),
+                        fontFamily: "Aller", fontSize: 17, color: color.MInputName),
                   ),
                 ),
                 TextField(
@@ -133,7 +135,32 @@ class updateDataClaiment extends StatelessWidget {
               ],
             ),
             Container(
-                child: FlatButton(onPressed: () {}, child: Text('UBAH DATA'))),
+              margin: EdgeInsets.only(top: 10),
+              width: setting.widthFlex(context),
+              child: ElevatedButton(
+                onPressed: () {
+                  updatePostDataKlaiment.connectToAPI(
+                    nama_lengkap.text.toString(), alamat.text.toString(), no_tlp.text.toString(), id.toString()
+                  );
+                      // print(id.toString());
+                  // _clearForm();
+                },
+                child: Text(
+                  'Ubah Data',
+                  style: new TextStyle(
+                    fontSize: 20.0,
+                    // color: Colors.yellow,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: color.MBase,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0), // <-- Radius
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),

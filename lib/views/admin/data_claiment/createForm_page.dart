@@ -54,33 +54,34 @@ class _formDataClaimentState extends State<formDataClaiment> {
                 icon: Icon(Icons.arrow_back),
                 onPressed: () => Navigator.of(context).pop(),
               ),
-              actions: <Widget>[
-                Padding(
-                    padding: EdgeInsets.only(right: 20.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        PostDataClaiment.connectToAPI(
-                              nama_lengkap.text.toString(), alamat.text.toString(), no_tlp.text.toString(), snapshot.data.toString(),
-                            );
-                        _clearForm();
-                        final snackBar = SnackBar(content: Text('Berhasil Masuk'));
+              // actions: <Widget>[
+              //   Padding(
+              //       padding: EdgeInsets.only(right: 20.0),
+              //       child: GestureDetector(
+              //         onTap: () {
+              //           PostDataClaiment.connectToAPI(
+              //                 nama_lengkap.text.toString(), alamat.text.toString(), no_tlp.text.toString(), snapshot.data.toString(),
+              //               );
+              //           _clearForm();
+              //           final snackBar = SnackBar(content: Text('Berhasil Masuk'));
 
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        Navigator.pop(context, () {
-                          // print('masuk');
-                          setState(() {
+              //           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              //           Navigator.pop(context, () {
+              //             // print('masuk');
+              //             setState(() {
                             
                             
-                          });
-                        });
-                      },
-                      child: Icon(Icons.add
-                          // size: 26.0,
-                        ),
-                    )),
-              ],
+              //             });
+              //           });
+              //         },
+              //         child: Icon(Icons.add
+              //             // size: 26.0,
+              //           ),
+              //       )),
+              // ],
             ),
             body: Container(
+              
               margin: EdgeInsets.all(20),
               child: ListView(
                 children: <Widget>[
@@ -93,7 +94,7 @@ class _formDataClaimentState extends State<formDataClaiment> {
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               fontFamily: "Aller",
-                              fontSize: 17,
+                              fontSize: setting.fontSize(),
                               color: color.MInputName),
                         ),
                       ),
@@ -131,7 +132,7 @@ class _formDataClaimentState extends State<formDataClaiment> {
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               fontFamily: "Aller",
-                              fontSize: 17,
+                              fontSize: setting.fontSize(),
                               color: color.MInputName),
                         ),
                       ),
@@ -167,7 +168,7 @@ class _formDataClaimentState extends State<formDataClaiment> {
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               fontFamily: "Aller",
-                              fontSize: 17,
+                              fontSize: setting.fontSize(),
                               color: color.MInputName),
                         ),
                       ),
@@ -190,8 +191,6 @@ class _formDataClaimentState extends State<formDataClaiment> {
                             ),
                           ),
                         ),
-                        // borderRadius: BorderRadius.all(Radius.circular(20)),
-                        
                         maxLength: 12,
                         onChanged: (value) {
                           setState(() {});
@@ -199,6 +198,32 @@ class _formDataClaimentState extends State<formDataClaiment> {
                         controller: no_tlp,
                       ),
                     ],
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    width: setting.widthFlex(context),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        PostDataClaiment.connectToAPI(
+                              nama_lengkap.text.toString(), alamat.text.toString(), no_tlp.text.toString(), snapshot.data.toString(),
+                            );
+                        _clearForm();
+                      },
+                      child: Text(
+                        'Tambah Data',
+                        style: new TextStyle(
+                          fontSize: 20.0,
+                          // color: Colors.yellow,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: color.MBase,
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0), // <-- Radius
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

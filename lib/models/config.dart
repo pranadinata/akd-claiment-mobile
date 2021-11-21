@@ -17,6 +17,12 @@ class setting{
     double widthFlexible = MediaQuery.of(context).size.width;
     return widthFlexible;
   }
+  //font size on all input text
+  static fontSize(){
+    return 17.0;
+  }
+
+  //background 
   static background_method(){
     return BoxDecoration(
       image: DecorationImage(

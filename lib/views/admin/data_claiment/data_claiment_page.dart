@@ -191,7 +191,46 @@ class _DataClaimentState extends State<DataClaiment> {
                                   margin: EdgeInsets.only(top: 8,right: 8, bottom: 8),
                                   child: ElevatedButton.icon(
                                     onPressed: () {
-
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            content: Container(
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  Align(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: Wrap(
+                                                      children: [
+                                                        Text(
+                                                          'Apakah anda yakin?',
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.bold),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            actions: [
+                                              FlatButton(
+                                                child: Text("Yakin"),
+                                                onPressed: () {
+                                                  // Navigator.of(context).pop();
+                                                },
+                                              ),
+                                              FlatButton(
+                                                child: Text("Batal"),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
                                     },
                                     icon: Icon(Icons.delete_rounded, size: 18),
                                     label: Text("Hapus"),

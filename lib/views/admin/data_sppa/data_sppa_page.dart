@@ -13,6 +13,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:path/path.dart';
 import 'package:open_file/open_file.dart';
+import 'package:external_path/external_path.dart';
 
 class DataSPPA extends StatefulWidget {
   const DataSPPA({Key? key}) : super(key: key);
@@ -146,8 +147,12 @@ class _DataSPPAState extends State<DataSPPA> {
                     TextButton(
                       child: const Text('Download File'),
                       onPressed: () async {
-                        final baseStorage = '/storage/emulated/0/Android/data/com.akd.akd_flutter/files/';
-                        
+                        // final baseStorage = '/storage/emulated/0/Android/data/com.akd.akd_flutter/files/';
+                        String baseStorage;
+
+                        baseStorage = await ExternalPath.getExternalStoragePublicDirectory(
+                            ExternalPath.DIRECTORY_DOWNLOADS);
+
                         final directory = await getExternalStorageDirectory();
                         // For your reference print the AppDoc directory 
                         print(directory);

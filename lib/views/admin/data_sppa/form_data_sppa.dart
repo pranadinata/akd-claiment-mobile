@@ -1,18 +1,18 @@
 import 'dart:convert';
-// import 'dart:io';
-import 'package:akd_flutter/controllers/post_data_sppa.dart';
-import 'package:akd_flutter/models/preferences.dart';
-import 'package:akd_flutter/views/admin/data_sppa/signature_page.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-
 import 'package:http/http.dart' as http;
-
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 // import 'package:path/path.dart';
 // import 'package:image_picker/image_picker.dart';
+
+//package buatan
+import 'package:akd_flutter/controllers/post_data_sppa.dart';
+import 'package:akd_flutter/models/config.dart';
+import 'package:akd_flutter/models/preferences.dart';
 import 'package:akd_flutter/models/api_route.dart' as apiRoute;
+import 'package:akd_flutter/views/admin/data_sppa/signature_page.dart';
 
 class formDataSppa extends StatefulWidget {
   const formDataSppa({Key? key}) : super(key: key);
@@ -24,7 +24,6 @@ class formDataSppa extends StatefulWidget {
 class _formDataSppaState extends State<formDataSppa> {
   var uuid = Uuid();
   Color? color_input = Colors.black;
-  Color? apps_appbar = Colors.blue[300];
   String uuid_fileName = '';
   String uploadFileName = "No File Uploaded";
   String uploadFilePath = "";
@@ -148,43 +147,12 @@ class _formDataSppaState extends State<formDataSppa> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: apps_appbar,
+          backgroundColor: color.MBase,
           title: Text("Data SPPA"),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          actions: <Widget>[
-            Padding(
-                padding: EdgeInsets.only(right: 20.0),
-                child: GestureDetector(
-                  onTap: () {
-                    PostDataSPPA.connectToAPI(
-                        id_data_klaiment,
-                        peserta1.text.toString(),
-                        peserta2.text.toString(),
-                        uploadFileName,
-                        uploadFileName_ttd,
-                        uuid_fileName,
-                        uuid_fileName_ttd,
-                        'masuk');
-                    _postFileTTD();
-                    _postFileKTP();
-                    // print(id_data_klaiment);
-
-                    final snackBar = SnackBar(content: Text('Berhasil Masuk'));
-                    // Navigator.push(DataClaiment).then((value) => setState(() {}));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    _clearForm();
-                    Navigator.pop(context, () {
-                      setState(() {});
-                    });
-                  },
-                  child: Icon(Icons.add
-                      // size: 26.0,
-                      ),
-                )),
-          ],
         ),
         body: Container(
           margin: EdgeInsets.all(20),
@@ -231,7 +199,7 @@ class _formDataSppaState extends State<formDataSppa> {
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontFamily: "Aller",
-                          fontSize: 18,
+                          fontSize: setting.fontSize(),
                           color: Colors.black),
                     ),
                   ),
@@ -344,15 +312,15 @@ class _formDataSppaState extends State<formDataSppa> {
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontFamily: "Aller",
-                          fontSize: 17,
-                          color: color_input),
+                          fontSize: setting.fontSize(),
+                          color: color.MInputName),
                     ),
                   ),
                   TextFormField(
                     controller: tanggal_lahir_peserta1,
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.grey[200],
+                      fillColor: color.MTextField,
                       border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                           const Radius.circular(10.0),
@@ -390,14 +358,14 @@ class _formDataSppaState extends State<formDataSppa> {
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontFamily: "Aller",
-                          fontSize: 17,
-                          color: Colors.black),
+                          fontSize: setting.fontSize(),
+                          color: color.MInputName),
                     ),
                   ),
                   TextField(
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Colors.grey[200],
+                      fillColor: color.MTextField,
                       border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                           const Radius.circular(10.0),
@@ -426,7 +394,7 @@ class _formDataSppaState extends State<formDataSppa> {
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontFamily: "Aller",
-                          fontSize: 18,
+                          fontSize: setting.fontSize(),
                           color: Colors.black),
                     ),
                   ),
@@ -646,10 +614,57 @@ class _formDataSppaState extends State<formDataSppa> {
                         ),
                       ),
                       Container(
-                          width: MediaQuery.of(context).size.width,
+                          width: setting.widthFlex(context),
                           margin: EdgeInsets.only(left: 10.0, top: 10.0),
-                          child: Text(uploadFileName_ttd)),
+                          child: Text(uploadFileName_ttd)
+                        ),
                     ],
+                  ),
+                
+                  Container(
+                    margin: EdgeInsets.only(top: 10),
+                    width: setting.widthFlex(context),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        PostDataSPPA.connectToAPI(
+                              id_data_klaiment,
+                              peserta1.text.toString(),
+                              peserta2.text.toString(),
+                              uploadFileName,
+                              uploadFileName_ttd,
+                              uuid_fileName,
+                              uuid_fileName_ttd,
+                              'masuk');
+                          _postFileTTD();
+                          _postFileKTP();
+                          // print(id_data_klaiment);
+
+                          final snackBar = SnackBar(content: Text('Berhasil Menambahkan Data'));
+                          // Navigator.push(DataClaiment).then((value) => setState(() {}));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          _clearForm();
+                          Navigator.pop(context, () {
+                            setState(() {
+
+                            });
+                          });
+                              _clearForm();
+                        },
+                      child: Text(
+                        'Tambah Data',
+                        style: new TextStyle(
+                          fontSize: 20.0,
+                          // color: Colors.yellow,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: color.MBase,
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0), // <-- Radius
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
