@@ -142,8 +142,10 @@ class updateDataClaiment extends StatelessWidget {
                   updatePostDataKlaiment.connectToAPI(
                     nama_lengkap.text.toString(), alamat.text.toString(), no_tlp.text.toString(), id.toString()
                   );
-                      // print(id.toString());
-                  // _clearForm();
+                  final snackBar = SnackBar(content: Text('Berhasil mengubah data'));
+
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.pop(context, (){});
                 },
                 child: Text(
                   'Ubah Data',

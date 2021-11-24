@@ -48,12 +48,12 @@ class PostDataClaiment {
 }
 
 class updatePostDataKlaiment{
-  String? nama_lengkap, alamat,no_tlp, id_user;
+  String? nama_lengkap, alamat,no_tlp, id_dataClaiment;
   updatePostDataKlaiment({
     required this.nama_lengkap,
     required this.alamat,
     required this.no_tlp,
-    required this.id_user,
+    required this.id_dataClaiment,
   });
 
    factory updatePostDataKlaiment.updatePostDataClaiment(Map<String, dynamic> object) {
@@ -61,13 +61,13 @@ class updatePostDataKlaiment{
       nama_lengkap: object['nama_lengkap'],
       alamat: object['alamat'],
       no_tlp: object['no_tlp'],
-      id_user: object['id_user'],
+      id_dataClaiment: object['id_dataClaiment'],
     );
   } 
   static Future<updatePostDataKlaiment> connectToAPI(
-      String nama_lengkap, String alamat, String no_tlp, String id_user) async {
+      String nama_lengkap, String alamat, String no_tlp, String id_dataClaiment) async {
     var apiResult = await http.post(
-      Uri.parse(DATA_CLAIMENT_STORE),
+      Uri.parse(DATA_CLAIMENT_UPDATE),
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
@@ -76,7 +76,7 @@ class updatePostDataKlaiment{
         "nama_lengkap": nama_lengkap,
         "alamat": alamat,
         "no_tlp": no_tlp,
-        "id_user": id_user,
+        "id_dataClaiment": id_dataClaiment,
       },
     );
     // print(apiResult.body);

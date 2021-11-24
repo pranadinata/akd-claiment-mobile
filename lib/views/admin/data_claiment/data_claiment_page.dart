@@ -1,8 +1,7 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
+import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 //package tambahan
 import 'package:akd_flutter/models/config.dart';
@@ -15,10 +14,7 @@ class DataClaiment extends StatefulWidget {
   final _DataClaimentState myAppState = new _DataClaimentState();
   @override
   _DataClaimentState createState() => _DataClaimentState();
-  onGoBack() {
-    // myAppState.dataLaporan = myAppState.fetchData();
-    myAppState.initState();
-  }
+  
 }
 
 class _DataClaimentState extends State<DataClaiment> {
@@ -29,6 +25,7 @@ class _DataClaimentState extends State<DataClaiment> {
   late List<bool> _isExpanded;
 
   Future<List> fetchData() async {
+    
     PreferencesUser preferencesUser1 = await PreferencesUser();
     var user_id = await preferencesUser1.getUser("id");
     String urlAllDataClaiment = apiRoute.DATA_CLAIMENT_ALL_DATA;
@@ -38,6 +35,9 @@ class _DataClaimentState extends State<DataClaiment> {
     Map dataAll = json.decode(result.body);
     dataJson = dataAll["data"];
     _isExpanded = new List<bool>.generate(dataJson.length, (i) => false);
+    // setState(() {
+    //   print(dataJson.length);
+    // });
     return dataJson;
   }
 
@@ -254,6 +254,7 @@ class _DataClaimentState extends State<DataClaiment> {
 
   @override
   void initState() {
+    // dataJson.clear();
     dataLaporan = fetchData();
     // TODO: implement initState
   }
@@ -266,16 +267,29 @@ class _DataClaimentState extends State<DataClaiment> {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           } else {
-            return Container(
-                decoration: setting.background_method(),
-                  padding: EdgeInsets.all(10),
-                  child: ListView(
-                    children: [
-                      buildCard(),
-                    ],
-                  ),
-              );
+            return RefreshIndicator(
+              onRefresh: refreshData,
+              child: ListView(
+                padding: EdgeInsets.all(10),
+                children: [
+                  buildCard()
+                ],
+                // return buildCard(),
+              ),
+            );
           }
-        });
+      }
+    );
+  }
+  Future refreshData() async {
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      final snackBar = SnackBar(content: Text('Berhasil di reload'));
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      // print(dataJson.length);
+      fetchData();
+    });
+    
   }
 }
