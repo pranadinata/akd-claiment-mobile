@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
       isLoading = false;
     });
 
-    print(response.statusCode);
+    // print(response.statusCode);
     if (response.statusCode == 200) {
       Map<String, dynamic> resposne = jsonDecode(response.body);
       if (resposne['status_code'] == 200) {

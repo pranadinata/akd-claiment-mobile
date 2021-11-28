@@ -1,19 +1,19 @@
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:akd_flutter/models/api_route.dart';
-import 'package:flutter/material.dart';
-import 'package:akd_flutter/models/api_route.dart' as apiRoute;
-import 'package:akd_flutter/models/preferences.dart';
-import 'package:http/http.dart' as http;
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flowder/flowder.dart';
-import 'package:akd_flutter/models/config.dart';
 import 'dart:convert';
-import 'package:dio/dio.dart';
-import 'package:path/path.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
+import 'package:flowder/flowder.dart';
 import 'package:open_file/open_file.dart';
 import 'package:external_path/external_path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+
+//package tambahan
+import 'package:akd_flutter/models/config.dart';
+import 'package:akd_flutter/models/preferences.dart';
+import 'package:akd_flutter/models/api_route.dart' as apiRoute;
+import 'package:akd_flutter/views/admin/data_sppa/detail_data_sppa.dart';
 
 class DataSPPA extends StatefulWidget {
   const DataSPPA({Key? key}) : super(key: key);
@@ -23,12 +23,10 @@ class DataSPPA extends StatefulWidget {
 }
 
 class _DataSPPAState extends State<DataSPPA> {
-  List<Widget> data_sppa = [];
   List dataJson = [];
   late DownloaderUtils options;
   late DownloaderCore core;
   late Future<List> dataLaporan;
-  late List<bool> _isExpanded;
 
   Future<List> fetchData() async {
     PreferencesUser preferencesUser1 = await PreferencesUser();
@@ -39,7 +37,6 @@ class _DataSPPAState extends State<DataSPPA> {
         
     Map dataAll = json.decode(result.body); 
     dataJson = dataAll["data"];
-    _isExpanded = new List<bool>.generate(dataJson.length, (i) => false);
     return dataJson;
   }
   buildCard(context) {
@@ -83,6 +80,36 @@ class _DataSPPAState extends State<DataSPPA> {
                                   alignment: Alignment.centerLeft,
                                   child: Wrap(
                                     children: [
+                                      Text('Jenis Kelamin Peserta 1 : ', style: TextStyle(fontWeight: FontWeight.bold),)
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(dataJson[index]['jenis_kelamin_peserta_1']),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(10),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Wrap(
+                                    children: [
+                                      Text('Tgl Lahir Peserta 1 : ', style: TextStyle(fontWeight: FontWeight.bold),)
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(dataJson[index]['tgl_lahir_peserta_1']),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(10),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Wrap(
+                                    children: [
                                       Text('Peserta 2 : ', style: TextStyle(fontWeight: FontWeight.bold),)
                                     ],
                                   ),
@@ -90,6 +117,21 @@ class _DataSPPAState extends State<DataSPPA> {
                                 Align(
                                   alignment: Alignment.centerLeft,
                                   child: Text(dataJson[index]['peserta_2']),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.all(10),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Wrap(
+                                    children: [
+                                      Text('Jenis Kelamin Peserta 2 : ', style: TextStyle(fontWeight: FontWeight.bold),)
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(dataJson[index]['jenis_kelamin_peserta_2']),
                                 ),
                                 Container(
                                   margin: EdgeInsets.all(10),
@@ -119,7 +161,7 @@ class _DataSPPAState extends State<DataSPPA> {
                                 ),
                                 Align(
                                   alignment: Alignment.centerLeft,
-                                  child: Text(dataJson[index]['created_at']),
+                                  child: Text(dataJson[index]['created_at'].toString()),
                                 ),
                                 Container(
                                   margin: EdgeInsets.all(10),
@@ -144,8 +186,39 @@ class _DataSPPAState extends State<DataSPPA> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    TextButton(
-                      child: const Text('Download File'),
+                    ElevatedButton.icon(
+                      onPressed: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                detailDataSppa(id: dataJson[index]['id']),
+                                // updateDataClaiment(
+                                //   id: dataJson[index]['id'],
+                                //   nama_lengkap_old:
+                                //       dataJson[index]
+                                //           ['nama_lengkap'],
+                                //   alamat_old: dataJson[index]
+                                //       ['alamat'],
+                                //   no_tlp_old: dataJson[index]
+                                //       ['no_tlp'],
+                                // )
+                                ),
+                        );
+                      }, 
+                      icon: Icon(Icons.remove_red_eye_rounded), 
+                      label: Text('View'),
+                      style: ElevatedButton.styleFrom(
+                        primary: color.MBase,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    ElevatedButton.icon(
+                      icon: Icon(Icons.file_present_outlined, size: 18),
+                      label: Text("Unduh File"),
+                      style: ElevatedButton.styleFrom(
+                        primary: color.MRed,
+                      ),
                       onPressed: () async {
                         // final baseStorage = '/storage/emulated/0/Android/data/com.akd.akd_flutter/files/';
                         String baseStorage;
@@ -161,17 +234,18 @@ class _DataSPPAState extends State<DataSPPA> {
                               final progress = (current / total) * 100;
                               print('Downloading: $progress');
                             },
-                            file: File(baseStorage + 'AKD Claiment.pdf'), 
+                            file: File(baseStorage + dataJson[index]['file_document_sppa']), 
                             progress: ProgressImplementation(),
                             onDone: () {
                                   OpenFile.open(baseStorage + 'AKD Claiment.pdf');
                             },
                             deleteOnCancel: true,
                           );
-                        print(dataJson[index]);
-                        core = await Flowder.download(('http://5.181.217.149/pdf_/SPPA_AKD_CLAIMENT_Final.pdf'), options);
+                        // print(dataJson[index]);
+                        core = await Flowder.download((apiRoute.PUBLIC+'pdf_/'+dataJson[index]['file_document_sppa']), options);
                       },
                     ),
+                    
                     const SizedBox(width: 8),
                   ],
                 ),
@@ -204,17 +278,29 @@ class _DataSPPAState extends State<DataSPPA> {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           } else {
-            return Container(
-                  decoration: setting.background_method(),
-                  padding: EdgeInsets.all(10),
-                  child: ListView(
-                    children: [
-                      buildCard(context),
-                    ],
-                  ),
-              );
+            return RefreshIndicator(
+              onRefresh: refreshData,
+              child: ListView(
+                padding: EdgeInsets.all(10),
+                children: [
+                  buildCard(context),
+                ],
+                // return buildCard(),
+              ),
+            );
           }
         });
+  }
+  Future refreshData() async {
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      final snackBar = SnackBar(content: Text('Berhasil di reload'));
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      // print(dataJson.length);
+      fetchData();
+    });
+    
   }
 }
 

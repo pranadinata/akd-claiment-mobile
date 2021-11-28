@@ -86,7 +86,5 @@ class updatePostDataKlaiment{
   }
 }
 
-class deletePostDataKlaiment{
 
-}
 

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
-//package tambahan
+//package buatan sendiri
 import 'package:akd_flutter/models/config.dart';
 import 'package:akd_flutter/models/preferences.dart';
 import 'package:akd_flutter/models/api_route.dart' as apiRoute;
@@ -219,6 +219,9 @@ class _DataClaimentState extends State<DataClaiment> {
                                                 child: Text("Yakin"),
                                                 onPressed: () {
                                                   // Navigator.of(context).pop();
+                                                  delete_data_claiment(dataJson[index]['id'].toString());
+                                                  Navigator.of(context).pop();
+                                                  // print('Yakin');
                                                 },
                                               ),
                                               FlatButton(
@@ -292,4 +295,20 @@ class _DataClaimentState extends State<DataClaiment> {
     });
     
   }
+  delete_data_claiment(id_dataClaiment) async {
+    Map data = {'id_dataClaiment': id_dataClaiment};
+    final response = await http.post(Uri.parse(apiRoute.DATA_CLAIMENT_DELETE),
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: data,
+          encoding: Encoding.getByName("utf-8"));
+      setState(() {
+          refreshData();
+      });
+    // print(id_data_claiment);
+  }
 }
+
+

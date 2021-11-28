@@ -10,7 +10,7 @@ class penjualanSPPA extends StatefulWidget {
 
 class _penjualanSPPAState extends State<penjualanSPPA> {
   Color? color_input = Colors.black;
-  late DateTime _selectedDate;
+  // late DateTime _selectedDate;
   TextEditingController dateCtl1 = TextEditingController();
   TextEditingController dateCtl2 = TextEditingController();
   late String data_pencarian = "";
@@ -60,6 +60,7 @@ class _penjualanSPPAState extends State<penjualanSPPA> {
                         lastDate: DateTime(2100)));
 
                     dateCtl1.text = date.toString();
+                    print(date.toString());
                   },
                 ),
               ],

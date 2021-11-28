@@ -626,29 +626,31 @@ class _formDataSppaState extends State<formDataSppa> {
                     width: setting.widthFlex(context),
                     child: ElevatedButton(
                       onPressed: () {
-                        PostDataSPPA.connectToAPI(
-                              id_data_klaiment,
-                              peserta1.text.toString(),
-                              peserta2.text.toString(),
-                              uploadFileName,
-                              uploadFileName_ttd,
-                              uuid_fileName,
-                              uuid_fileName_ttd,
-                              'masuk');
-                          _postFileTTD();
-                          _postFileKTP();
+                        post_Data();
+                        _postFileTTD();
+                        _postFileKTP();
+                        // print(peserta2.text.toString());
+                        // PostDataSPPA.connectToAPI(
+                        //       id_data_klaiment,
+                        //       peserta1.text.toString(),
+                        //       jenis_kelamin_peserta_1.toString(),
+                        //       tanggal_lahir_peserta1.text.toString(),
+                        //       peserta2.text.toString(),
+                        //       jenis_kelamin_peserta_2.toString(),
+                        //       tanggal_lahir_peserta2.text.toString(),
+                        //       uploadFileName,
+                        //       uploadFileName_ttd,
+                        //       uuid_fileName,
+                        //       uuid_fileName_ttd,
+                        //       'masuk');
+                          
                           // print(id_data_klaiment);
 
                           final snackBar = SnackBar(content: Text('Berhasil Menambahkan Data'));
                           // Navigator.push(DataClaiment).then((value) => setState(() {}));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          Navigator.pop(context, () { });
                           _clearForm();
-                          Navigator.pop(context, () {
-                            setState(() {
-
-                            });
-                          });
-                              _clearForm();
                         },
                       child: Text(
                         'Tambah Data',
@@ -673,5 +675,47 @@ class _formDataSppaState extends State<formDataSppa> {
         ),
       ),
     );
+  }
+  post_Data(){
+      var peserta1_; 
+      var peserta2_;
+      var jenis_kelamin_peserta_1_;
+      var jenis_kelamin_peserta_2_;
+      var tgl_lahir1_;
+      var tgl_lahir2_;
+
+      if(peserta1.text.toString() == ''){
+        peserta1_ = 'Tidak Ada';
+        jenis_kelamin_peserta_1_ = 'Tidak Ada';
+        tgl_lahir1_ = 'Tidak Ada';
+      }else {
+        peserta1_ = peserta1.text.toString();
+        jenis_kelamin_peserta_1_ = jenis_kelamin_peserta_1.toString();
+        tgl_lahir1_ = tanggal_lahir_peserta1.text.toString();
+      }
+
+      if(peserta2.text.toString() == ''){
+          peserta2_ = 'Tidak Ada';
+          jenis_kelamin_peserta_2_ = 'Tidak Ada';
+          tgl_lahir2_ = 'Tidak Ada';
+      }else {
+          peserta2_ = peserta2.text.toString();
+          jenis_kelamin_peserta_2_ = jenis_kelamin_peserta_2.toString();
+          tgl_lahir2_ = tanggal_lahir_peserta2.text.toString();
+      }
+      
+      PostDataSPPA.connectToAPI(
+        id_data_klaiment,
+        peserta1_,
+        jenis_kelamin_peserta_1_,
+        tgl_lahir1_,
+        peserta2_,
+        jenis_kelamin_peserta_2_,
+        tgl_lahir2_,
+        uploadFileName,
+        uploadFileName_ttd,
+        uuid_fileName,
+        uuid_fileName_ttd,
+        'Masuk');
   }
 }
