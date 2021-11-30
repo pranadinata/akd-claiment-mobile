@@ -341,7 +341,7 @@ class _formDataSppaState extends State<formDataSppa> {
                           firstDate: DateTime(1900),
                           lastDate: DateTime(2100)));
 
-                      tanggal_lahir_peserta1.text = date.toString();
+                      tanggal_lahir_peserta1.text = date.toString().split(' ')[0];
                     },
                   ),
                 ],
@@ -459,7 +459,7 @@ class _formDataSppaState extends State<formDataSppa> {
                           firstDate: DateTime(1900),
                           lastDate: DateTime(2100)));
 
-                      tanggal_lahir_peserta2.text = date.toString();
+                      tanggal_lahir_peserta2.text = date.toString().split(' ')[0];
                     },
                   ),
                 ],

@@ -18,7 +18,7 @@ class detailDataSppa extends StatelessWidget {
   //   String urlAllDataSppa = apiRoute.DATA_SPPA_ALL_DATA;
   //   http.Response result = await http.post(Uri.parse(urlAllDataSppa),
   //       headers: {"Accept": "application/json"}, body: {'id_user': user_id});
-        
+  
   //   Map dataAll = json.decode(result.body); 
   //   dataJson = dataAll["data"];
   //   _isExpanded = new List<bool>.generate(dataJson.length, (i) => false);

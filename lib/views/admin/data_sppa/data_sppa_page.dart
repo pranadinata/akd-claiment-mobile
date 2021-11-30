@@ -188,23 +188,23 @@ class _DataSPPAState extends State<DataSPPA> {
                   children: <Widget>[
                     ElevatedButton.icon(
                       onPressed: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                detailDataSppa(id: dataJson[index]['id']),
-                                // updateDataClaiment(
-                                //   id: dataJson[index]['id'],
-                                //   nama_lengkap_old:
-                                //       dataJson[index]
-                                //           ['nama_lengkap'],
-                                //   alamat_old: dataJson[index]
-                                //       ['alamat'],
-                                //   no_tlp_old: dataJson[index]
-                                //       ['no_tlp'],
-                                // )
-                                ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) =>
+                        //         detailDataSppa(id: dataJson[index]['id']),
+                        //         // updateDataClaiment(
+                        //         //   id: dataJson[index]['id'],
+                        //         //   nama_lengkap_old:
+                        //         //       dataJson[index]
+                        //         //           ['nama_lengkap'],
+                        //         //   alamat_old: dataJson[index]
+                        //         //       ['alamat'],
+                        //         //   no_tlp_old: dataJson[index]
+                        //         //       ['no_tlp'],
+                        //         // )
+                        //         ),
+                        // );
                       }, 
                       icon: Icon(Icons.remove_red_eye_rounded), 
                       label: Text('View'),
@@ -260,7 +260,6 @@ class _DataSPPAState extends State<DataSPPA> {
         ]
       );
     }
-    
   }
 
   @override
@@ -289,7 +288,8 @@ class _DataSPPAState extends State<DataSPPA> {
               ),
             );
           }
-        });
+        }
+        );
   }
   Future refreshData() async {
     await Future.delayed(Duration(seconds: 2));
