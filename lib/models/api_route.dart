@@ -20,3 +20,6 @@ const String DATA_SPPA_SHOW_PENJUALAN = "$ROOT/data-sppa/show_penjualan";
 const String DATA_SPPA_STORE_FILE = "$ROOT/data-sppa/store/file";
 const String DATA_SPPA_STORE_FILETTD = "$ROOT/data-sppa/store/fileTTD";
 const String DATA_SPPA_ALL_DATA = "$ROOT/data-sppa";
+
+//data chart
+const String DATA_SPPA_SHOW_CHART_JENIS_KELAMIN = "$ROOT/data-sppa/show_chart_jenis_kelamin";

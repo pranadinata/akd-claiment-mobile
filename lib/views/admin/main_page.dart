@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:fragment_navigate/navigate-control.dart';
 
@@ -11,6 +12,7 @@ import 'package:akd_flutter/views/admin/data_claiment/data_claiment_page.dart';
 import 'package:akd_flutter/views/admin/data_claiment/createForm_page.dart';
 import 'package:akd_flutter/views/admin/data_sppa/form_data_sppa.dart';
 import 'package:akd_flutter/views/admin/dashboard/dashboard_user_page.dart';
+import 'package:akd_flutter/views/admin/dashboard/dashboard_chart.dart';
 
 final String dashboardUser = 'Halaman Utama';
 final String dataKlaiment = 'Data Klaiment';
@@ -48,7 +50,7 @@ class Main extends StatelessWidget {
           key: dashboardUser,
           title: dashboardUser,
           icon: Icons.dashboard_sharp,
-          fragment: DashboardUser(),
+          fragment: DashboardChart(),
         ),
         Posit(
           key: dataKlaiment,
